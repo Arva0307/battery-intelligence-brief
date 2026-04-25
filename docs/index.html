@@ -4,295 +4,216 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📁 Brief Archive — Battery Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:       #0d1b2a;
-    --accent:     #00c2cb;
-    --accent2:    #d4880a;
-    --green:      #27ae60;
-    --red:        #e74c3c;
-    --yellow:     #f39c12;
-    --bg:         #f0f3f7;
-    --fuel-amber: #b35c00;
-    --white:      #fff;
-    --border:     #dde3ea;
-    --text-muted: #8fa3b8;
-    --card-bg:    #fff;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'Syne', sans-serif;
-    --serif: 'DM Serif Display', serif;
+    --navy:    #0d1b2a;
+    --accent:  #00c2cb;
+    --bg:      #f0f2f5;
+    --white:   #fff;
+    --border:  #e2e8f0;
+    --muted:   #94a3b8;
+    --text:    #1e293b;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: var(--sans);
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
-    color: var(--navy);
+    color: var(--text);
     min-height: 100vh;
   }
-
-  /* ── HEADER ── */
-  .site-header {
-    background: var(--navy);
-    border-bottom: 3px solid var(--accent);
-    padding: 0 24px;
-  }
-
-  .header-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 52px;
-  }
-
-  .site-title {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  .header-nav {
-    display: flex;
-    gap: 24px;
-  }
-
-  .header-nav a {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.15s;
-  }
-  .header-nav a:hover,
-  .header-nav a.active { color: var(--accent); }
 
   /* ── HERO ── */
   .hero {
     background: var(--navy);
-    padding: 48px 24px 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 3px solid var(--accent);
+    padding: 36px 40px 32px;
   }
 
-  .hero-inner {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  .hero-kicker {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+  .hero-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
 
   .hero h1 {
-    font-family: var(--serif);
-    font-size: 36px;
-    color: var(--white);
-    font-weight: 400;
-    margin-bottom: 10px;
-    line-height: 1.15;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
   }
 
   .hero-sub {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 32px;
+    font-size: 14px;
+    color: var(--muted);
   }
 
-  .stats-row {
+  /* ── STATS ── */
+  .stats-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 40px;
     display: flex;
-    gap: 32px;
+    gap: 48px;
   }
 
-  .stat-block {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+  .stat-block { display: flex; flex-direction: column; gap: 3px; }
 
   .stat-num {
-    font-family: var(--mono);
     font-size: 28px;
-    font-weight: 600;
-    color: var(--accent);
+    font-weight: 700;
+    color: var(--text);
     line-height: 1;
   }
 
   .stat-label {
-    font-family: var(--mono);
     font-size: 11px;
-    color: var(--text-muted);
+    font-weight: 600;
+    color: var(--muted);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  /* ── FILTERS ── */
-  .filter-bar {
+  /* ── FILTER + SEARCH ── */
+  .filter-search-row {
     background: var(--white);
     border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-
-  .filter-inner {
-    max-width: 960px;
-    margin: 0 auto;
+    padding: 14px 40px;
     display: flex;
     align-items: center;
-    gap: 0;
-    height: 48px;
-    overflow-x: auto;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
   .filter-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-right: 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
+    margin-right: 6px;
   }
 
   .filter-btn {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--navy);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--text);
     cursor: pointer;
-    border-radius: 0;
-    white-space: nowrap;
-    transition: all 0.15s;
-    margin-right: 4px;
-    flex-shrink: 0;
-    letter-spacing: 0.06em;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
+    transition: all 0.15s;
+    white-space: nowrap;
   }
 
-  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
-
-  /* ── SEARCH ── */
-  .search-row {
-    background: var(--bg);
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .search-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
+  .filter-btn:hover { border-color: #cbd5e1; background: #f8fafc; }
+  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
 
   .search-box {
-    flex: 1;
-    font-family: var(--mono);
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
-    padding: 9px 14px;
-    border: 1px solid var(--border);
-    background: var(--white);
-    color: var(--navy);
-    border-radius: 0;
+    padding: 8px 16px;
+    border: 1.5px solid var(--border);
+    background: #f8fafc;
+    color: var(--text);
+    border-radius: 8px;
     outline: none;
+    width: 220px;
     transition: border-color 0.15s;
   }
-  .search-box:focus { border-color: var(--accent); }
-  .search-box::placeholder { color: var(--text-muted); }
-
-  .search-count {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
+  .search-box:focus { border-color: var(--accent); background: var(--white); }
+  .search-box::placeholder { color: var(--muted); }
 
   /* ── GRID ── */
-  .grid-section {
-    max-width: 960px;
+  .grid-wrap {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 28px 24px 60px;
+    padding: 28px 40px 60px;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
 
+  /* ── CARD ── */
   .edition-card {
-    background: var(--card-bg);
+    background: var(--white);
     border: 1px solid var(--border);
-    border-top: 3px solid var(--accent);
-    padding: 20px;
+    border-radius: 6px;
+    padding: 24px;
     cursor: pointer;
-    transition: box-shadow 0.15s, transform 0.15s;
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.15s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edition-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 6px 0 0 6px;
   }
 
   .edition-card:hover {
-    box-shadow: 0 4px 20px rgba(0,194,203,0.12);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
     transform: translateY(-2px);
   }
 
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
-  .edition-badge {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 600;
-    background: var(--navy);
-    color: var(--white);
-    padding: 3px 8px;
-    letter-spacing: 0.1em;
+  .card-edition {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    margin-bottom: 4px;
   }
 
-  .card-date {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 0.06em;
+  .card-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
   }
 
   .card-title {
-    font-family: var(--serif);
-    font-style: italic;
     font-size: 17px;
-    line-height: 1.3;
-    color: var(--navy);
-    margin-bottom: 10px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
   }
 
+  /* Thought Seed — teal left border, no background */
+  .card-seed {
+    border-left: 3px solid var(--accent);
+    padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+
+  .card-seed p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* Tags */
   .card-tags {
     display: flex;
     flex-wrap: wrap;
@@ -301,163 +222,76 @@
   }
 
   .tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
     color: #fff !important;
-    border-radius: 0;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
-  .tag-storage  { background: #00c2cb; }
-  .tag-grid     { background: #0d1b2a; }
-  .tag-market   { background: #d4880a; }
-  .tag-policy   { background: #b35c00; }
-  .tag-tech     { background: #c47d0e; }
-  .tag-safety   { background: #e74c3c; }
+  .tag-storage    { background: #00c2cb; }
+  .tag-grid       { background: #0d1b2a; }
+  .tag-market     { background: #d4880a; }
+  .tag-policy     { background: #b35c00; }
+  .tag-tech       { background: #c47d0e; }
+  .tag-safety     { background: #e74c3c; }
   .tag-datacenter { background: #27ae60; }
+  .tag-macro      { background: #6366f1; }
 
-  .card-seed {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    background: #f0f7ff;
-    border-left: 2px solid var(--accent);
-    padding: 8px 10px;
-    margin-top: 4px;
-  }
-
-  .seed-icon { font-size: 12px; flex-shrink: 0; margin-top: 1px; }
-
-  .seed-text {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--navy);
+  /* Signal line */
+  .card-signal {
+    font-size: 12px;
+    color: var(--muted);
     line-height: 1.5;
-  }
-
-  .seed-kicker {
-    font-size: 9px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 14px;
-    padding-top: 10px;
+    margin-top: auto;
+    padding-top: 12px;
     border-top: 1px solid var(--border);
   }
 
-  .card-read {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-muted);
-  }
-
-  .card-arrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  /* latest badge */
-  .latest-pill {
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 600;
-    background: var(--accent);
-    color: var(--white);
-    padding: 2px 7px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-left: 8px;
-  }
-
-  /* empty state */
-  .empty-state {
+  .empty-msg {
+    grid-column: 1 / -1;
     text-align: center;
     padding: 60px 0;
-    display: none;
+    font-size: 14px;
+    color: var(--muted);
   }
 
-  .empty-state p {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-muted);
-  }
-
-  /* ── FOOTER ── */
-  .site-footer {
-    background: var(--navy);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 24px;
-    text-align: center;
-  }
-
-  .footer-text {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-  }
-
-  .footer-text a { color: var(--accent); text-decoration: none; }
-
+  @media (max-width: 960px) { .grid { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 600px) {
-    .hero h1 { font-size: 26px; }
-    .stats-row { gap: 20px; }
     .grid { grid-template-columns: 1fr; }
-    .header-nav { display: none; }
+    .hero, .stats-bar, .filter-search-row, .grid-wrap { padding-left: 20px; padding-right: 20px; }
+    .hero h1 { font-size: 22px; }
+    .filter-search-row { flex-direction: column; align-items: flex-start; }
+    .search-box { width: 100%; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="site-title">⚡ Battery Intelligence Brief</div>
-    <nav class="header-nav">
-      <a href="index.html" class="active">Archive</a>
-      <a href="latest.html">Latest Edition</a>
-    </nav>
-  </div>
-</header>
-
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-kicker">📁 Brief Archive</div>
-    <h1>Battery Intelligence & Grid-Scale Energy Markets</h1>
-    <p class="hero-sub">All editions · Searchable by date, tag, and Thought Seed topic</p>
-    <div class="stats-row">
-      <div class="stat-block">
-        <div class="stat-num" id="stat-editions">0</div>
-        <div class="stat-label">Editions</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-num" id="stat-week">0</div>
-        <div class="stat-label">This Week</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-num" id="stat-seeds">0</div>
-        <div class="stat-label">Thought Seeds</div>
-      </div>
-    </div>
-  </div>
+  <span class="hero-emoji">📁</span>
+  <h1>Brief Archive — Battery Intelligence</h1>
+  <p class="hero-sub">All editions · Searchable by date, tag, and Thought Seed topic</p>
 </section>
 
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <div class="filter-inner">
+<div class="stats-bar">
+  <div class="stat-block">
+    <div class="stat-num" id="stat-editions">0</div>
+    <div class="stat-label">Editions</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num" id="stat-week">0</div>
+    <div class="stat-label">This Week</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num" id="stat-seeds">0</div>
+    <div class="stat-label">Thought Seeds</div>
+  </div>
+</div>
+
+<div class="filter-search-row">
+  <div class="filter-group">
     <span class="filter-label">Filter:</span>
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="storage">Storage</button>
@@ -466,114 +300,68 @@
     <button class="filter-btn" data-filter="policy">Policy</button>
     <button class="filter-btn" data-filter="tech">Tech</button>
     <button class="filter-btn" data-filter="datacenter">Datacenter</button>
+    <button class="filter-btn" data-filter="macro">Macro</button>
     <button class="filter-btn" data-filter="safety">Safety</button>
   </div>
+  <input class="search-box" type="text" id="searchInput" placeholder="Search editions...">
 </div>
 
-<!-- SEARCH -->
-<div class="search-row">
-  <div class="search-inner">
-    <input class="search-box" type="text" id="searchInput" placeholder="Search editions, headlines, Thought Seeds…">
-    <span class="search-count" id="searchCount"></span>
+<div class="grid-wrap">
+  <div class="grid" id="editionGrid">
+    <div class="empty-msg">No editions yet — generate your first brief to get started.</div>
   </div>
 </div>
-
-<!-- GRID -->
-<section class="grid-section">
-  <div class="grid" id="editionGrid"></div>
-  <div class="empty-state" id="emptyState">
-    <p>No editions match your search or filter.</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="site-footer">
-  <p class="footer-text">Battery Intelligence Brief · Auto-generated daily by Claude AI · <a href="latest.html">Read Latest →</a></p>
-</footer>
 
 <script>
-// ── DATA ──
-// This file is auto-updated by the GitHub Actions workflow.
-// Each entry is injected by generate_brief.py after a new edition is created.
 const EDITIONS = EDITIONS_DATA_PLACEHOLDER;
 
-// ── RENDER ──
+function pad(n) { return String(n).padStart(3, '0'); }
+
 function renderCards(data) {
   const grid = document.getElementById('editionGrid');
-  const empty = document.getElementById('emptyState');
-
-  if (data.length === 0) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
+  if (!data.length) {
+    grid.innerHTML = '<div class="empty-msg">No editions match your search.</div>';
     return;
   }
-
-  empty.style.display = 'none';
-  grid.innerHTML = data.map((ed, i) => {
-    const isLatest = i === 0;
-    const tagsHtml = ed.tags.map(t =>
-      `<span class="tag tag-${t.toLowerCase()}">${t}</span>`
-    ).join('');
-
-    return `
-    <a class="edition-card" href="${ed.file}" data-tags="${ed.tags.join(',').toLowerCase()}" data-search="${ed.title.toLowerCase()} ${ed.seed.toLowerCase()} ${ed.tags.join(' ').toLowerCase()}">
-      <div class="card-top">
-        <div>
-          <span class="edition-badge">Edition ${ed.edition}</span>
-          ${isLatest ? '<span class="latest-pill">Latest</span>' : ''}
-        </div>
-        <span class="card-date">${ed.date}</span>
-      </div>
+  grid.innerHTML = data.map(ed => {
+    const tags = ed.tags.map(t =>
+      `<span class="tag tag-${t.toLowerCase()}">${t}</span>`).join('');
+    const seed = ed.seed
+      ? `<div class="card-seed"><p>🌱 ${ed.seed}</p></div>` : '';
+    const signal = ed.signal
+      ? `<div class="card-signal">📊 ${ed.signal}</div>` : '';
+    return `<a class="edition-card" href="${ed.file}"
+      data-tags="${ed.tags.join(',').toLowerCase()}"
+      data-search="${(ed.title+' '+ed.seed+' '+ed.tags.join(' ')).toLowerCase()}">
+      <div class="card-edition">Edition #${pad(ed.edition)}</div>
+      <div class="card-meta">${ed.date} · ~18 MIN</div>
       <div class="card-title">${ed.title}</div>
-      <div class="card-tags">${tagsHtml}</div>
-      ${ed.seed ? `
-      <div class="card-seed">
-        <span class="seed-icon">🌱</span>
-        <div class="seed-text">
-          <span class="seed-kicker">Thought Seed</span>
-          ${ed.seed}
-        </div>
-      </div>` : ''}
-      <div class="card-footer">
-        <span class="card-read">~18 min read · 10 sections</span>
-        <span class="card-arrow">Read →</span>
-      </div>
+      ${seed}
+      <div class="card-tags">${tags}</div>
+      ${signal}
     </a>`;
   }).join('');
 }
 
-// ── STATS ──
-function updateStats(data) {
+function updateStats() {
   document.getElementById('stat-editions').textContent = EDITIONS.length;
-
-  const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  const thisWeek = EDITIONS.filter(e => new Date(e.isoDate) >= oneWeekAgo).length;
-  document.getElementById('stat-week').textContent = thisWeek;
-
-  const seeds = EDITIONS.filter(e => e.seed).length;
-  document.getElementById('stat-seeds').textContent = seeds;
+  const week = Date.now() - 7*24*60*60*1000;
+  document.getElementById('stat-week').textContent =
+    EDITIONS.filter(e => new Date(e.isoDate) >= week).length;
+  document.getElementById('stat-seeds').textContent =
+    EDITIONS.filter(e => e.seed).length;
 }
 
-// ── FILTER ──
-let activeFilter = 'all';
-let searchQuery = '';
+let activeFilter = 'all', searchQuery = '';
 
 function applyFilters() {
   let data = [...EDITIONS];
-
-  if (activeFilter !== 'all') {
-    data = data.filter(e => e.tags.map(t => t.toLowerCase()).includes(activeFilter));
-  }
-
-  if (searchQuery) {
+  if (activeFilter !== 'all')
+    data = data.filter(e => e.tags.map(t=>t.toLowerCase()).includes(activeFilter));
+  if (searchQuery)
     data = data.filter(e =>
-      (e.title + ' ' + e.seed + ' ' + e.tags.join(' ')).toLowerCase().includes(searchQuery)
-    );
-  }
-
+      (e.title+' '+e.seed+' '+e.tags.join(' ')).toLowerCase().includes(searchQuery));
   renderCards(data);
-  document.getElementById('searchCount').textContent =
-    data.length < EDITIONS.length ? `${data.length} of ${EDITIONS.length} editions` : `${EDITIONS.length} editions`;
 }
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -590,10 +378,8 @@ document.getElementById('searchInput').addEventListener('input', e => {
   applyFilters();
 });
 
-// ── INIT ──
-updateStats(EDITIONS);
-renderCards(EDITIONS);
-document.getElementById('searchCount').textContent = `${EDITIONS.length} editions`;
+updateStats();
+if (EDITIONS.length) renderCards(EDITIONS);
 </script>
 </body>
 </html>
