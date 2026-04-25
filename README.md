@@ -59,3 +59,4 @@ Go to **Actions → Generate Battery Intelligence Brief → Run workflow**
 
 ~$0.24/day using `claude-opus-4-20250514` (~16K output tokens per brief).  
 Swap to `claude-sonnet-4-20250514` in `scripts/generate_brief.py` to reduce to ~$0.03/day.
+# Battery-Intelligence-Briefing
