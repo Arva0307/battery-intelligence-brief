@@ -61,3 +61,4 @@ Go to **Actions → Generate Battery Intelligence Brief → Run workflow**
 Swap to `claude-sonnet-4-20250514` in `scripts/generate_brief.py` to reduce to ~$0.03/day.
 # Battery-Intelligence-Briefing
 # Battery-Intelligence-Briefing
+# Battery-Intelligence-Briefing
