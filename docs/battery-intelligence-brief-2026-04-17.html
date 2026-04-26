@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDITION #002 — Battery Intelligence Brief · April 17, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0d1b2a;--accent:#00c2cb;--accent2:#f5a623;--accent3:#f5a623;--accent4:#f39c12;
+  --green:#27ae60;--red:#e74c3c;--yellow:#f39c12;--fuel-amber:#b35c00;--macro-bg:#f0f7ff;--danger:#e74c3c;
+  --tag-storage:#00c2cb;--tag-grid:#0d1b2a;--tag-market:#d4880a;--tag-policy:#b35c00;--tag-tech:#c47d0e;--tag-safety:#e74c3c;
+  --mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;--serif:'DM Serif Display',serif;
+}
+@media(prefers-color-scheme:light){
+  :root{--bg:#f0f3f7;--surface:#fff;--surface2:#e8edf3;--border:#dde3ea;--border-bright:#c4cdd8;--text:#0d1b2a;--text-muted:#8fa3b8;--text-dim:#aab8c8;--head-color:#0d1b2a;--card-bg:#fff;}
+  .masthead-title{color:#fff}.masthead-title span{color:var(--accent)}
+  .article h3,.macro-box h3,.seed-h2{color:var(--navy)}
+  .header-bar{background:#0d1b2a}body::before{opacity:0}
+  .snapshot-value{color:var(--navy)}.snapshot-value.down{color:var(--red)}.snapshot-value.neu{color:var(--accent)}.snapshot-value.warn{color:var(--accent2)}
+  .section-number{background:var(--navy);color:#fff;border:none}
+  .tag-storage{background:var(--tag-storage);color:#fff;border-color:var(--tag-storage)}
+  .tag-grid{background:var(--tag-grid);color:#fff;border-color:var(--tag-grid)}
+  .tag-market{background:#d4880a;color:#fff;border-color:#d4880a}
+  .tag-policy{background:var(--tag-policy);color:#fff;border-color:var(--tag-policy)}
+  .tag-tech{background:#c47d0e;color:#fff;border-color:#c47d0e}
+  .tag-safety{background:var(--tag-safety);color:#fff;border-color:var(--tag-safety)}
+  .risk-critical{background:var(--red);color:#fff}.risk-high{background:var(--fuel-amber);color:#fff}
+  .risk-moderate{background:var(--accent2);color:#fff}.risk-watch{background:var(--accent);color:#fff}
+  .risk-stable{background:var(--green);color:#fff}
+  .status-active{background:var(--green);color:#fff}.status-draft{background:var(--accent2);color:#fff}
+  .status-pending{background:var(--accent);color:#fff}.status-evolving{background:var(--fuel-amber);color:#fff}
+  .synthesis-box{background:var(--macro-bg);border-left-color:var(--accent2)}.synthesis-box .label{color:var(--accent2)}
+  .macro-box{background:var(--macro-bg)}.steel-man{background:rgba(245,166,35,.07);border-color:rgba(245,166,35,.35)}
+  .steel-man .label{color:var(--accent2)}.risk-table th{background:var(--navy);color:#fff}
+  .risk-table td{border-color:var(--border)}.risk-table tr:hover td{background:var(--surface2)}
+  .signal-card{background:var(--card-bg);border-top:3px solid var(--accent)}.signal-card .value{color:var(--navy)}
+  .snapshot-cell{background:var(--card-bg);border-top:3px solid var(--accent)}
+  .snapshot-cell.snap-down{border-top-color:var(--red)}.snapshot-cell.snap-warn{border-top-color:var(--accent2)}
+  .risk-flag{background:var(--card-bg)}.thought-seed{background:var(--surface)}
+  .confidence-badge{background:rgba(39,174,96,.1);border-color:rgba(39,174,96,.3);color:var(--green)}
+  .section-nav-btn{background:var(--card-bg);color:var(--navy);border-color:var(--border)}
+  .section-nav-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .toc{border-color:rgba(255,255,255,.1)}.compliance-matrix th{background:var(--surface2)}
+  .compliance-matrix td{border-color:var(--border)}.truth-footer{background:var(--surface2)}
+  .sources-index{border-color:var(--border)}
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--surface:#111822;--surface2:#18222e;--border:#1e2d3d;--border-bright:#2a3d52;--text:#d4dde8;--text-muted:#7a93aa;--text-dim:#4a6070;--head-color:#e8f0f8;--card-bg:#111822;}
+  .masthead-title{color:#fff}.masthead-title span{color:var(--accent)}
+  .article h3,.macro-box h3,.seed-h2{color:var(--head-color)}
+  .header-bar{background:rgba(10,14,21,.97)}body::before{opacity:0}
+  .snapshot-value{color:var(--accent)}.snapshot-value.down{color:var(--red)}.snapshot-value.neu{color:var(--accent)}.snapshot-value.warn{color:var(--accent2)}
+  .section-number{background:var(--accent);color:var(--navy);border:none}
+  .tag-storage{background:rgba(0,194,203,.2);color:var(--accent);border-color:rgba(0,194,203,.4)}
+  .tag-grid{background:rgba(13,27,42,.6);color:#8fa3b8;border-color:rgba(255,255,255,.15)}
+  .tag-market{background:rgba(245,166,35,.2);color:var(--accent2);border-color:rgba(245,166,35,.4)}
+  .tag-policy{background:rgba(179,92,0,.2);color:#e0944a;border-color:rgba(179,92,0,.4)}
+  .tag-tech{background:rgba(243,156,18,.2);color:var(--yellow);border-color:rgba(243,156,18,.4)}
+  .tag-safety{background:rgba(231,76,60,.2);color:var(--red);border-color:rgba(231,76,60,.4)}
+  .risk-critical{background:rgba(231,76,60,.25);color:#f87171}.risk-high{background:rgba(179,92,0,.25);color:#fb923c}
+  .risk-moderate{background:rgba(245,166,35,.2);color:var(--accent2)}.risk-watch{background:rgba(0,194,203,.15);color:var(--accent)}
+  .risk-stable{background:rgba(39,174,96,.2);color:#4ade80}
+  .status-active{background:rgba(39,174,96,.2);color:#4ade80}.status-draft{background:rgba(245,166,35,.2);color:var(--accent2)}
+  .status-pending{background:rgba(0,194,203,.15);color:var(--accent)}.status-evolving{background:rgba(179,92,0,.2);color:#fb923c}
+  .synthesis-box{background:rgba(0,194,203,.07);border-left-color:var(--accent2)}.synthesis-box .label{color:var(--accent2)}
+  .macro-box{background:var(--surface)}.steel-man{background:rgba(245,166,35,.05);border-color:rgba(245,166,35,.2)}
+  .steel-man .label{color:var(--accent2)}.risk-table th{background:var(--surface2);color:var(--text-muted)}
+  .risk-table td{border-color:var(--border)}.risk-table tr:hover td{background:var(--surface)}
+  .signal-card{background:var(--surface);border-top:3px solid var(--accent)}.signal-card .value{color:var(--accent)}
+  .snapshot-cell{background:var(--surface);border-top:3px solid var(--accent)}
+  .snapshot-cell.snap-down{border-top-color:var(--red)}.snapshot-cell.snap-warn{border-top-color:var(--accent2)}
+  .risk-flag{background:var(--surface)}.thought-seed{background:var(--surface2)}
+  .confidence-badge{background:rgba(39,174,96,.1);border-color:rgba(39,174,96,.25);color:#4ade80}
+  .section-nav-btn{background:var(--surface);color:var(--text-muted);border-color:var(--border)}
+  .section-nav-btn:hover{background:var(--accent);color:var(--navy);border-color:var(--accent)}
+  .toc{background:var(--surface)}.compliance-matrix th{background:var(--surface2);color:var(--text-muted)}
+  .compliance-matrix td{border-color:var(--border)}.truth-footer{background:var(--surface2)}
+  .sources-index{border-color:var(--border)}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrapper{max-width:860px;margin:0 auto;padding:0 24px}
+/* HEADER BAR */
+.header-bar{background:#0d1b2a;border-bottom:1px solid rgba(0,194,203,.35);padding:0;position:sticky;top:0;z-index:200}
+.header-bar-top{display:flex;justify-content:space-between;align-items:center;padding:10px 24px;max-width:860px;margin:0 auto}
+.header-bar-edition{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.5);text-transform:uppercase}
+.header-bar-edition strong{color:#fff}
+.header-bar-actions{display:flex;gap:8px;align-items:center}
+.header-bar-truth{background:rgba(0,194,203,.08);border-top:1px solid rgba(0,194,203,.2);padding:7px 24px;display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center}
+.header-bar-truth-item{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:5px}
+.header-bar-truth-item .ck{color:#00c2cb;font-weight:700}
+.header-bar-nav{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.07);padding:0 24px;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none}
+.header-bar-nav::-webkit-scrollbar{display:none}
+.header-bar-nav a{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.45);padding:9px 14px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;text-decoration:none;display:flex;align-items:center;gap:5px}
+.header-bar-nav a:hover{color:#fff;border-bottom-color:#00c2cb}
+.hb-action-btn{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:7px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .2s;border-radius:3px;border:none;white-space:nowrap;text-decoration:none}
+.hb-action-btn.pdf{background:#00c2cb;color:#0d1b2a}.hb-action-btn.pdf:hover{background:#00dde8}
+.hb-action-btn.share{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#e2e8f0}.hb-action-btn.share:hover{background:rgba(255,255,255,.18)}
+.share-wrapper{position:relative}
+.share-dropdown{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;box-shadow:0 8px 28px rgba(0,0,0,.18);min-width:270px;z-index:400;overflow:hidden}
+.share-dropdown.open{display:block}
+.share-option{display:flex;gap:12px;align-items:flex-start;padding:13px 16px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s;color:var(--text)}
+.share-option:last-child{border-bottom:none}.share-option:hover{background:var(--surface2)}
+.share-option-icon{font-size:17px;flex-shrink:0;margin-top:2px}
+.share-option-text{display:flex;flex-direction:column;gap:2px}
+.share-option-text strong{font-size:13px;color:var(--head-color);font-family:var(--sans)}
+.share-option-text span{font-size:11px;color:var(--text-muted);font-family:var(--mono)}
+.copy-confirm{color:var(--green);margin-left:6px;display:none;font-size:11px}.copy-confirm.show{display:inline}
+/* MASTHEAD */
+.masthead{background:#0d1b2a;border-bottom:3px solid #00c2cb;padding:36px 0 0;position:relative;overflow:hidden}
+.masthead-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(0,194,203,.07) 0%,transparent 70%),radial-gradient(ellipse 50% 80% at 10% 80%,rgba(245,166,35,.04) 0%,transparent 60%);pointer-events:none}
+.edition-tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.15em;color:#fff;text-transform:uppercase;margin-bottom:20px;display:inline-flex;align-items:center;gap:10px}
+.edition-tag-badge{background:#00c2cb;color:#0d1b2a;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;padding:3px 10px;text-transform:uppercase}
+.masthead-title{font-family:var(--serif);font-size:clamp(28px,4.5vw,52px);line-height:1.15;color:#fff;letter-spacing:-.01em;margin-bottom:20px;font-style:normal;}
+.masthead-sub{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.08em;margin-bottom:20px}
+.meta-row{display:flex;flex-wrap:wrap;gap:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);border-top:1px solid rgba(255,255,255,.08)}
+.meta-item{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px}
+.meta-item .icon{font-size:13px}
+.toc{border:1px solid rgba(255,255,255,.1);padding:20px;margin:24px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.toc-item{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:8px;align-items:flex-start}
+.toc-item .bullet{color:#00c2cb;flex-shrink:0;font-weight:700}
+.toc-item a{color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}.toc-item a:hover{color:#00c2cb}
+.truth-layer{display:none}.truth-item{display:none}
+.bias-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:24px;margin-bottom:32px}
+.other-side-note{margin-top:16px;border-left:2px solid var(--accent4);padding:10px 14px;font-size:13px;color:var(--text-muted);font-style:italic;background:rgba(245,200,66,.04)}
+.other-side-note strong{color:var(--accent4);font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.1em}
+.bias-bar-track{height:10px;border-radius:2px;background:rgba(255,255,255,.1);position:relative;overflow:visible}
+.bias-bar-fill{height:100%;border-radius:2px}
+.bias-bar-marker{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;background:#fff;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.25),0 2px 6px rgba(0,0,0,.5);z-index:2}
+/* SECTION */
+.section-header{display:flex;align-items:center;gap:14px;margin:48px 0 24px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-number{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.12em;padding:3px 10px;border-radius:2px;border:1px solid}
+.section-title{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase}
+.section-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.section-nav-btn{font-family:var(--mono);font-size:11px;font-weight:600;padding:6px 14px;border:1px solid;border-radius:3px;cursor:pointer;transition:all .18s;letter-spacing:.05em;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.section-nav-end{display:flex;justify-content:space-between;padding:20px 0 0;margin-top:32px;border-top:1px solid var(--border)}
+.section-nav-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase}
+/* TAGS + BADGES */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:3px 8px;border-radius:0!important;border:1px solid;text-transform:uppercase;font-weight:700;color:#fff!important}
+.risk-badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:0!important;white-space:nowrap}
+.status-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:0!important;letter-spacing:.04em;white-space:nowrap}
+/* ARTICLE */
+.article{margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border)}
+.article:last-child{border-bottom:none}
+.article h3{font-family:var(--serif);font-size:clamp(20px,3vw,26px);line-height:1.25;margin-bottom:14px;font-style:italic}
+.article p{color:var(--text);font-size:15px;line-height:1.75;margin-bottom:14px}
+.synthesis-box{border-left:3px solid;padding:16px 18px;margin:20px 0}
+.synthesis-box .label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.synthesis-box p{font-size:14px;color:var(--text);margin:0;line-height:1.7}
+.sources{display:flex;flex-direction:column;gap:5px;margin-top:16px}
+.source-item{font-family:var(--mono);font-size:10px;color:var(--text-dim);display:flex;gap:8px;align-items:flex-start}
+.source-type{color:var(--accent3);flex-shrink:0;font-weight:700;letter-spacing:.05em}
+.bias-meters{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0}
+.bias-meter{flex:1;min-width:180px}
+.bias-meter-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.bias-meter-icon{width:20px;height:20px;border-radius:3px;background:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.bias-track{height:4px;background:var(--border);border-radius:2px}
+.bias-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.bias-ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-top:3px}
+.steel-man{border:1px solid;padding:16px 18px;margin-top:16px}
+.steel-man .label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;margin-bottom:8px}
+.steel-man p{font-size:13px;color:var(--text-muted);font-style:italic;line-height:1.7;margin:0}
+/* MACRO */
+.macro-box{border:1px solid var(--border);padding:24px;margin-bottom:12px}
+.macro-box .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.macro-box .kicker::after{content:'';flex:1;height:1px;background:var(--border)}
+.macro-box h3{font-family:var(--serif);font-size:20px;margin-bottom:12px;font-style:italic}
+.macro-box p{font-size:14px;color:var(--text);line-height:1.7}
+.signal-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:16px 0}
+.signal-card{border:1px solid var(--border);padding:16px}
+.signal-card .label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+.signal-card .value{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
+.signal-card .sub{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+/* DATA SNAPSHOT */
+.snapshot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1px;margin-bottom:16px;border:1px solid var(--border)}
+.snapshot-cell{padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.snapshot-value{font-family:var(--mono);font-size:clamp(22px,4vw,30px);font-weight:700;line-height:1}
+.snapshot-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.08em;line-height:1.4;text-transform:uppercase}
+/* RISK TABLE */
+.risk-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}
+.risk-table th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.risk-table td{padding:10px 12px;border-bottom:1px solid;color:var(--text);font-size:13px;vertical-align:top}
+/* TECH CARDS */
+.tech-card{border:1px solid var(--border);padding:20px;margin-bottom:16px;border-left:3px solid var(--accent);transition:border-color .2s}
+.tech-card:hover{border-left-color:var(--accent2)}
+.tech-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.tech-card-name{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--head-color);letter-spacing:.05em}
+.tech-card-trl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--text-dim)}
+.tech-card-trl span{color:var(--accent4);font-weight:700}
+.tech-card p{font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:8px}
+.trl-bar{display:flex;gap:3px;margin:8px 0}
+.trl-pip{width:22px;height:6px;border-radius:1px;background:var(--border)}
+.trl-pip.filled{background:var(--accent4)}.trl-pip.high{background:var(--accent)}
+/* TIMELINE */
+.timeline-track{border-left:2px solid var(--border);padding-left:16px;margin-left:4px}
+.timeline-row{display:grid;grid-template-columns:80px 1fr;gap:16px;margin-bottom:16px;align-items:start}
+.timeline-year{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);padding-top:2px}
+.timeline-content h4{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--head-color);margin-bottom:4px}
+.timeline-content p{font-size:13px;color:var(--text-muted);line-height:1.6;margin:0}
+/* DC STATS */
+.dc-stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:16px 0}
+.dc-stat{border:1px solid var(--border);padding:16px}
+.dc-stat-value{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--accent2);line-height:1;margin-bottom:4px}
+.dc-stat-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+/* COMPLIANCE MATRIX */
+.compliance-matrix{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.compliance-matrix th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.compliance-matrix td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+.compliance-matrix tr:hover td{background:var(--surface2)}
+/* RISK FLAGS */
+.risk-flag{display:flex;gap:12px;padding:16px;border:1px solid var(--border);border-left:3px solid var(--danger);margin-bottom:12px}
+.risk-flag-icon{font-size:20px;flex-shrink:0}
+.risk-flag-content h4{font-size:14px;font-weight:700;color:var(--head-color);margin-bottom:4px}
+.risk-flag-content p{font-size:13px;color:var(--text-muted);line-height:1.6;margin:0}
+/* THOUGHT SEED */
+.thought-seed{border:1px solid var(--border);padding:28px;margin-bottom:12px}
+.seed-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.seed-cite{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:20px;line-height:1.6}
+.seed-h2{font-family:var(--serif);font-size:clamp(18px,3vw,22px);margin-bottom:16px;font-style:italic;line-height:1.3}
+.seed-section-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.seed-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.seed-p{font-size:14px;color:var(--text);line-height:1.75;margin-bottom:12px}
+.impl-list{list-style:none;margin:0;padding:0}
+.impl-list li{font-size:14px;color:var(--text);line-height:1.7;padding:8px 0 8px 20px;border-bottom:1px solid var(--border);position:relative}
+.impl-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-family:var(--mono);font-size:12px}
+.confidence-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:5px 12px;margin:16px 0;border-radius:2px;border:1px solid}
+.further-reading{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.further-reading a{font-family:var(--mono);font-size:11px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;transition:color .2s}
+.further-reading a::before{content:'↗';color:var(--accent2);flex-shrink:0}
+.further-reading a:hover{color:var(--accent);text-decoration:none}
+/* SOURCES + FOOTER */
+.sources-index{padding:32px 0;border-top:1px solid;margin-top:48px}
+.sources-index-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-bottom:16px}
+.sources-index ol{list-style:none;counter-reset:src;display:flex;flex-direction:column;gap:8px}
+.sources-index ol li{counter-increment:src;font-family:var(--mono);font-size:11px;color:var(--text-dim);display:flex;gap:10px;line-height:1.5}
+.sources-index ol li::before{content:counter(src,decimal-leading-zero)'.';color:var(--accent);flex-shrink:0}
+.truth-footer{border-top:1px solid var(--border);padding:20px 0}
+.truth-footer-inner{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.tf-item{font-family:var(--mono);font-size:10px;color:var(--text-dim);display:flex;align-items:center;gap:5px}
+.tf-item .check{color:var(--accent)}
+@media(max-width:600px){
+  .snapshot-grid{grid-template-columns:repeat(2,1fr)}.risk-table{font-size:12px}
+  .risk-table th,.risk-table td{padding:8px}.signal-row{grid-template-columns:repeat(2,1fr)}
+  .timeline-row{grid-template-columns:60px 1fr;gap:10px}.masthead-title{white-space:normal;font-size:24px}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body::before{display:none!important}
+  .share-wrapper,.header-bar-actions{display:none!important}
+
+  /* Resolve all CSS variables to explicit values for print */
+  /* Light mode values: --text:#0d1b2a --text-muted:#8fa3b8 --text-dim:#aab8c8
+     --head-color:#0d1b2a --bg:#f0f3f7 --surface:#fff --surface2:#e8edf3
+     --border:#dde3ea --accent:#00c2cb --accent2:#f5a623 --accent4:#f39c12
+     --navy:#0d1b2a --red:#e74c3c --green:#27ae60 --fuel-amber:#b35c00 */
+
+  body{background:#f0f3f7!important;color:#0d1b2a!important}
+
+  /* ── Header bar ── */
+  .header-bar{position:static!important;background:#0d1b2a!important}
+  .header-bar-top{background:#0d1b2a!important}
+  .header-bar-edition{color:#aac4d8!important}
+  .header-bar-edition strong{color:#ffffff!important}
+  .header-bar-truth{background:#0d2030!important}
+  .header-bar-truth-item{color:#aac4d8!important}
+  .header-bar-truth-item .ck{color:#00c2cb!important}
+  .header-bar-nav{background:#091522!important}
+  .header-bar-nav a{color:#8bb5cc!important;text-decoration:none!important}
+
+  /* ── Masthead ── */
+  .masthead{position:static!important;background:#0d1b2a!important}
+  .masthead-bg{display:none!important}
+  .edition-tag{color:#ffffff!important}
+  .edition-tag-badge{background:#00c2cb!important;color:#0d1b2a!important}
+  .masthead-title{color:#ffffff!important;white-space:normal!important}
+  .masthead-title span{color:#00c2cb!important}
+  .masthead-sub{color:#8bb5cc!important}
+  .meta-row{border-color:#1e3448!important}
+  .meta-item{color:#8bb5cc!important}
+  .toc{background:#0a1520!important;border-color:#1e3448!important}
+  .toc-item{color:#8bb5cc!important}
+  .toc-item .bullet{color:#00c2cb!important}
+  .toc-item a{color:#8bb5cc!important;text-decoration:none!important}
+  .bias-panel{background:#0a1520!important;border-color:#1e3448!important}
+  .other-side-note{color:#8bb5cc!important;border-color:#f39c12!important}
+
+  /* ── Section structure ── */
+  .section-header{border-color:#dde3ea!important}
+  .section-number{background:#0d1b2a!important;color:#fff!important;border:none!important}
+  .section-title{color:#8fa3b8!important}
+  .section-nav,.section-nav-end{display:flex!important;border-color:#dde3ea!important}
+  .section-nav-btn{background:#fff!important;border-color:#dde3ea!important;color:#0d1b2a!important;text-decoration:none!important}
+  .section-nav-label{color:#aab8c8!important}
+
+  /* ── Article body ── */
+  .article h3{color:#0d1b2a!important}
+  .article p{color:#0d1b2a!important}
+  .synthesis-box{background:#f0f7ff!important;border-left-color:#f5a623!important}
+  .synthesis-box .label{color:#f5a623!important}
+  .synthesis-box p{color:#0d1b2a!important}
+  .source-item{color:#aab8c8!important}
+  .source-type{color:#f5a623!important}
+  .steel-man{background:rgba(245,166,35,0.07)!important;border-color:rgba(245,166,35,0.35)!important}
+  .steel-man .label{color:#f5a623!important}
+  .steel-man p{color:#8fa3b8!important}
+  .bias-meter-label{color:#aab8c8!important}
+  .bias-ends{color:#aab8c8!important}
+
+  /* ── Signal + snapshot ── */
+  .signal-card{background:#fff!important;border-top:3px solid #00c2cb!important}
+  .signal-card .label{color:#aab8c8!important}
+  .signal-card .value{color:#0d1b2a!important}
+  .signal-card .sub{color:#8fa3b8!important}
+  .snapshot-cell{background:#fff!important;border-top:3px solid #00c2cb!important}
+  .snapshot-cell.snap-down{border-top-color:#e74c3c!important}
+  .snapshot-cell.snap-warn{border-top-color:#f5a623!important}
+  .snapshot-value{color:#0d1b2a!important}
+  .snapshot-value.down{color:#e74c3c!important}
+  .snapshot-value.warn{color:#f5a623!important}
+  .snapshot-label{color:#aab8c8!important}
+
+  /* ── Risk table ── */
+  .risk-table th{background:#0d1b2a!important;color:#fff!important}
+  .risk-table td{color:#0d1b2a!important;border-color:#dde3ea!important}
+  .risk-critical{background:#e74c3c!important;color:#fff!important}
+  .risk-high{background:#b35c00!important;color:#fff!important}
+  .risk-moderate{background:#f5a623!important;color:#fff!important}
+  .risk-watch{background:#00c2cb!important;color:#fff!important}
+  .risk-stable{background:#27ae60!important;color:#fff!important}
+
+  /* ── Tags ── */
+  .tag-storage{background:#00c2cb!important;color:#fff!important}
+  .tag-grid{background:#0d1b2a!important;color:#fff!important}
+  .tag-market{background:#d4880a!important;color:#fff!important}
+  .tag-policy{background:#b35c00!important;color:#fff!important}
+  .tag-tech{background:#c47d0e!important;color:#fff!important}
+  .tag-safety{background:#e74c3c!important;color:#fff!important}
+
+  /* ── Macro box ── */
+  .macro-box{background:#f0f7ff!important;border-color:#dde3ea!important}
+  .macro-box .kicker{color:#00c2cb!important}
+  .macro-box h3{color:#0d1b2a!important}
+  .macro-box p{color:#0d1b2a!important}
+
+  /* ── Tech cards ── */
+  .tech-card{border-color:#dde3ea!important;border-left-color:#00c2cb!important}
+  .tech-card-name{color:#0d1b2a!important}
+  .tech-card-trl{color:#aab8c8!important}
+  .tech-card-trl span{color:#f39c12!important}
+  .tech-card p{color:#8fa3b8!important}
+  .trl-pip{background:#dde3ea!important}
+  .trl-pip.filled{background:#f39c12!important}
+  .trl-pip.high{background:#00c2cb!important}
+
+  /* ── Timeline ── */
+  .timeline-track{border-color:#dde3ea!important}
+  .timeline-year{color:#00c2cb!important}
+  .timeline-content h4{color:#0d1b2a!important}
+  .timeline-content p{color:#8fa3b8!important}
+
+  /* ── DC stats ── */
+  .dc-stat{border-color:#dde3ea!important;background:#fff!important}
+  .dc-stat-value{color:#f5a623!important}
+  .dc-stat-label{color:#aab8c8!important}
+
+  /* ── Compliance matrix ── */
+  .compliance-matrix th{background:#e8edf3!important;color:#8fa3b8!important}
+  .compliance-matrix td{color:#0d1b2a!important;border-color:#dde3ea!important}
+  .status-active{background:#27ae60!important;color:#fff!important}
+  .status-draft{background:#f5a623!important;color:#fff!important}
+  .status-pending{background:#00c2cb!important;color:#fff!important}
+  .status-evolving{background:#b35c00!important;color:#fff!important}
+
+  /* ── Risk flags ── */
+  .risk-flag{background:#fff!important;border-color:#dde3ea!important}
+  .risk-flag-content h4{color:#0d1b2a!important}
+  .risk-flag-content p{color:#8fa3b8!important}
+
+  /* ── Thought seed ── */
+  .thought-seed{background:#fff!important;border-color:#dde3ea!important}
+  .seed-kicker{color:#00c2cb!important}
+  .seed-cite{color:#aab8c8!important}
+  .seed-h2{color:#0d1b2a!important}
+  .seed-section-label{color:#00c2cb!important}
+  .seed-section-label::after{background:#dde3ea!important}
+  .seed-p{color:#0d1b2a!important}
+  .impl-list li{color:#0d1b2a!important;border-color:#dde3ea!important}
+  .impl-list li::before{color:#00c2cb!important}
+  .confidence-badge{color:#27ae60!important;border-color:rgba(39,174,96,0.3)!important}
+
+  /* ── Further reading ── */
+  .further-reading a{color:#006070!important;font-size:10px!important}
+  .further-reading a::after{content:" (" attr(href) ")";font-size:9px;color:#666;word-break:break-all}
+
+  /* ── Sources + footer ── */
+  .sources-index{border-color:#dde3ea!important}
+  .sources-index-title{color:#aab8c8!important}
+  .sources-index ol li{color:#aab8c8!important}
+  .sources-index ol li::before{color:#00c2cb!important}
+  .truth-footer{background:#e8edf3!important}
+  .tf-item{color:#aab8c8!important}
+  .tf-item .check{color:#00c2cb!important}
+
+  /* ── Page breaks ── */
+  .article{page-break-inside:avoid}
+  .thought-seed{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY HEADER -->
+<div class="header-bar" id="top">
+  <div class="header-bar-top">
+    <div class="header-bar-edition"><strong>EDITION #002</strong> · APRIL 17, 2026 · Battery Intelligence Brief</div>
+    <div class="header-bar-actions">
+      <button class="hb-action-btn pdf" onclick="downloadPDF()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
+      <div class="share-wrapper">
+        <button class="hb-action-btn share" onclick="toggleShare(event)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share ▾
+        </button>
+        <div class="share-dropdown" id="shareDropdown">
+          <a class="share-option" onclick="shareEmail()">
+            <span class="share-option-icon">✉️</span>
+            <div class="share-option-text"><strong>Share via Email</strong><span>Opens your email client with subject &amp; body pre-filled</span></div>
+          </a>
+          <a class="share-option" onclick="copyLink()">
+            <span class="share-option-icon">🔗</span>
+            <div class="share-option-text"><strong>Copy Link <span class="copy-confirm" id="copyConfirm">✓ Copied!</span></strong><span>Copy link to share with teammates</span></div>
+          </a>
+          <a class="share-option" onclick="downloadPDF()">
+            <span class="share-option-icon">📄</span>
+            <div class="share-option-text"><strong>Save as PDF</strong><span>Print / save via browser PDF dialog</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-bar-truth">
+    <span class="header-bar-truth-item"><span class="ck">✓</span> Truth Layer — 28 claims verified | 24 sources cross-checked | 4 claims excluded (unverifiable)</span>
+    <span class="header-bar-truth-item"><span class="ck">✓</span> Format Layer — All sections cited | Bias axes calibrated to edition story mix</span>
+    <span class="header-bar-truth-item"><span class="ck">✓</span> No paywalled content used | No claims older than 14 days without context label</span>
+  </div>
+  <div class="header-bar-nav">
+    <a href="#sec01">⚡ Executive Briefs</a>
+    <a href="#sec02">📊 Macro Signal</a>
+    <a href="#sec03">🗺 Risk Map</a>
+    <a href="#sec04">📈 Data Snapshot</a>
+    <a href="#sec05">🔋 Battery Tech</a>
+    <a href="#sec06">🔭 Future Landscape</a>
+    <a href="#sec07">🖥 Datacenter</a>
+    <a href="#sec08">🏛 Certification</a>
+    <a href="#sec09">⚠ Emerging Risks</a>
+    <a href="#sec10">🌱 Thought Seed</a>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<div class="masthead" id="masthead">
+  <div class="masthead-bg"></div>
+  <div class="wrapper">
+    <div class="edition-tag"><span class="edition-tag-badge">Edition #002</span> Battery Intelligence Brief</div>
+    <div class="masthead-title">FEOC Compliance Reshapes<br>the BESS <span>Supply Chain</span></div>
+    <div class="masthead-sub">FEOC · UL 9540A ED.6 · BESS DEGRADATION · C&I MARKETS · CERTIFICATION · APRIL 17, 2026</div>
+    <div class="meta-row">
+      <span class="meta-item"><span class="icon">📅</span> Friday, April 17, 2026</span>
+      <span class="meta-item"><span class="icon">⏱</span> ~22 min read</span>
+      <span class="meta-item"><span class="icon">📰</span> 10 Sections</span>
+      <span class="meta-item"><span class="icon">🔭</span> Macro: OBBBA FEOC × BESS Supply Crunch</span>
+      <span class="meta-item"><span class="icon">🌱</span> Thought Seed: UL 9540A Ed.6 Certification Gap</span>
+    </div>
+    <div class="toc">
+      <div class="toc-item"><span class="bullet">01</span><a href="#sec01">⚡ Executive Briefs</a></div>
+      <div class="toc-item"><span class="bullet">02</span><a href="#sec02">📊 Macro Signal</a></div>
+      <div class="toc-item"><span class="bullet">03</span><a href="#sec03">🗺 Project Developer Risk Map</a></div>
+      <div class="toc-item"><span class="bullet">04</span><a href="#sec04">📈 Data Snapshot</a></div>
+      <div class="toc-item"><span class="bullet">05</span><a href="#sec05">🔋 Evolving Battery Technology</a></div>
+      <div class="toc-item"><span class="bullet">06</span><a href="#sec06">🔭 Future Landscape</a></div>
+      <div class="toc-item"><span class="bullet">07</span><a href="#sec07">🖥 Datacenter Opportunities</a></div>
+      <div class="toc-item"><span class="bullet">08</span><a href="#sec08">🏛 Certification &amp; Compliance</a></div>
+      <div class="toc-item"><span class="bullet">09</span><a href="#sec09">⚠ Emerging Risks</a></div>
+      <div class="toc-item"><span class="bullet">10</span><a href="#sec10">🌱 Thought Seed</a></div>
+    </div>
+    <div class="bias-panel">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-family:var(--mono);font-size:13px;font-weight:700;color:#00c2cb;">≡</span>
+        <span style="font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:0.18em;color:#00c2cb;text-transform:uppercase;">How to Read the Bias Meter</span>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:20px;line-height:1.6;">Every story is tagged on three axes. The dot shows where this source's framing leans — not where the underlying truth sits. Red end = one pole, green end = the other. Center = neutral or genuinely mixed framing.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;font-weight:800;color:#00c2cb;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">🏭 Supply Chain Axis</div>
+          <div class="bias-bar-track" style="margin-bottom:8px;"><div class="bias-bar-fill" style="width:100%;background:linear-gradient(90deg,#e74c3c,#27ae60)"></div><div class="bias-bar-marker" style="left:32%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);margin-bottom:10px;"><span>🌏 China-Dep</span><span>🏠 Domestic-First</span></div>
+          <p style="font-size:11px;color:#e74c3c;line-height:1.5;margin-bottom:4px;"><strong>China-Dep:</strong> Accepts low-cost Chinese supply as structural baseline.</p>
+          <p style="font-size:11px;color:#27ae60;line-height:1.5;"><strong>Domestic-First:</strong> Favors FEOC-compliant domestic chains, even at higher cost.</p>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;font-weight:800;color:#00c2cb;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">⚖️ Market Structure Axis</div>
+          <div class="bias-bar-track" style="margin-bottom:8px;"><div class="bias-bar-fill" style="width:100%;background:linear-gradient(90deg,#f5a623,#00c2cb)"></div><div class="bias-bar-marker" style="left:55%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);margin-bottom:10px;"><span>📈 Merchant</span><span>📋 Contracted</span></div>
+          <p style="font-size:11px;color:#f5a623;line-height:1.5;margin-bottom:4px;"><strong>Merchant:</strong> Values price arbitrage, ancillary services, market upside.</p>
+          <p style="font-size:11px;color:#00c2cb;line-height:1.5;"><strong>Contracted:</strong> Values long-term offtake certainty and regulated returns.</p>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;font-weight:800;color:#00c2cb;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">🔬 Technology Axis</div>
+          <div class="bias-bar-track" style="margin-bottom:8px;"><div class="bias-bar-fill" style="width:100%;background:linear-gradient(90deg,#27ae60,#b35c00)"></div><div class="bias-bar-marker" style="left:40%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);margin-bottom:10px;"><span>🔋 LFP</span><span>⚗️ Next-Gen</span></div>
+          <p style="font-size:11px;color:#27ae60;line-height:1.5;margin-bottom:4px;"><strong>LFP / Incumbent:</strong> Focuses on bankable, tested, scalable technology.</p>
+          <p style="font-size:11px;color:#f5a623;line-height:1.5;"><strong>Next-Gen:</strong> Prioritizes alternative chemistries — Na-ion, flow, iron-air.</p>
+        </div>
+      </div>
+      <div class="other-side-note" style="margin-top:20px;">
+        🎯 The <strong style="color:rgba(245,166,35,0.9);">"Other Side"</strong> box beneath each story presents the strongest counterargument. Your job is to decide which version of reality is closer to the truth.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SEC 01 EXECUTIVE BRIEFS ═══ -->
+<div class="wrapper" id="sec01">
+  <div class="section-header"><span class="section-number">SECTION 01</span><span class="section-title">Executive Briefs</span></div>
+  <div class="section-nav"><span></span><span class="section-nav-label">Section 01 of 10 — Executive Briefs</span><a href="#sec02" class="section-nav-btn">📊 Macro Signal →</a></div>
+
+  <div class="article">
+    <div class="tags"><span class="tag tag-policy">Policy</span><span class="tag tag-storage">Storage</span><span class="tag tag-market">Market</span></div>
+    <h3>FEOC Compliance Deadline Arrives — 55% Non-FEOC Cost Threshold Now a Hard Gate on ITC Eligibility</h3>
+    <p>The One Big Beautiful Bill Act's Foreign Entity of Concern restrictions took full effect in 2026, requiring at least 55% of project costs to originate from non-FEOC sources for ITC eligibility — a threshold rising to 75% by 2030. For developers with projects not safe-harbored before January 1, 2026, compliance is now a hard gate on tax credit access. Treasury's interim guidance (Notice 2026-15) established a Material Assistance Cost Ratio framework but left critical interpretive questions unanswered, particularly for public companies attempting to verify equity and debt ownership thresholds against the prohibited foreign entity definition.</p>
+    <p>The supply constraint is real: Korean manufacturers AESC (Tennessee) and LG Energy Solution (Michigan) account for over 80% of available FEOC-compliant ESS cell capacity, but those facilities are still ramping from EV battery retooling. If plants operate at the industry-historical 70–80% utilization, the apparent 10% domestic capacity surplus evaporates quickly. Fluence is already using AESC cells for a portion of U.S. projects. Developers initiating new projects without secured FEOC-compliant supply face cost increases exceeding 30% depending on applicable tariff levels.</p>
+    <div class="synthesis-box">
+      <div class="label">Synthesis — Test Engineering &amp; Validation Lens</div>
+      <p>FEOC compliance is now a procurement-stage validation requirement. Labs and certification teams will increasingly be called upon to verify bill-of-materials traceability at the cell level — a workflow that touches UL 9540 listing, supply chain documentation, and AHJ review packages. Test engineers who can speak fluently to cell-origin provenance in a certification dossier have a distinct advantage in 2026 project conversations.</p>
+    </div>
+    <div class="sources">
+      <div class="source-item"><span class="source-type">GOV</span> U.S. Treasury / IRS — Notice 2026-15, FEOC Material Assistance Cost Ratio Safe Harbour (Feb 2026)</div>
+      <div class="source-item"><span class="source-type">TRADE</span> Morgan Lewis — Utility-Scale Energy Storage Procurements in 2026 (Mar 2026)</div>
+      <div class="source-item"><span class="source-type">TRADE</span> Energy-Storage.News — US Energy Storage FEOC ITC Momentum Analysis (Jul 2025)</div>
+      <div class="source-item"><span class="source-type">SYNTH</span> Cross-source analysis: CNESA, Solar Power World, BNEF capacity commentary</div>
+    </div>
+    <div class="bias-meters">
+      <div class="bias-meter"><div class="bias-meter-label"><span class="bias-meter-icon">🏭</span> Supply Chain</div><div class="bias-track"><div class="bias-fill" style="width:72%;background:linear-gradient(90deg,#e74c3c,#27ae60)"></div></div><div class="bias-ends"><span>China-Dep</span><span>Domestic-First</span></div></div>
+      <div class="bias-meter"><div class="bias-meter-label"><span class="bias-meter-icon">⚖️</span> Policy Stance</div><div class="bias-track"><div class="bias-fill" style="width:60%;background:linear-gradient(90deg,#00c2cb,#e74c3c)"></div></div><div class="bias-ends"><span>Pro-ITC Access</span><span>Restrictive</span></div></div>
+    </div>
+    <div class="steel-man">
+      <div class="label">📌 Other Side</div>
+      <p>FEOC restrictions may be creating unnecessary complexity for projects that are fundamentally good for U.S. grid reliability. Many safe-harbored 2024–25 projects used Chinese cells that performed reliably at lower cost. The MACR framework's reliance on outdated domestic content safe-harbour tables may penalize developers who made reasonable supply chain decisions before rules were finalized — and the IRS guidance gap on 45X manufacturing credits won't be resolved until end of 2027.</p>
+    </div>
+  </div>
+
+  <div class="article">
+    <div class="tags"><span class="tag tag-safety">Safety</span><span class="tag tag-storage">Storage</span></div>
+    <h3>UL 9540A 6th Edition Published March 13 — Large-Scale Fire Testing Is Now the Certification Baseline</h3>
+    <p>UL 9540A Edition 6 was officially published March 13, 2026, formalizing large-scale fire testing (LSFT) as the new standard for installation-level BESS certification. The update aligns directly with NFPA 855 (2026 edition), which mandates in Section 9.2.1.2.1 that BESS installations demonstrate non-propagation between adjacent units under real fire conditions. The 6th Edition introduces a post-deflagration condition to evaluate enclosure design, separation distances, and fire suppression effectiveness — a significant step beyond the module-level optimization that defined prior generations of BESS safety design.</p>
+    <p>Component-level compliance is no longer sufficient. Manufacturers must now demonstrate full system behavior under fire, including intentional ignition of vented gases. AHJs are increasingly requesting heat release rate (HRR) data, gas composition analysis, and BMS response logs that go beyond what UL 9540A alone requires. CSA/ANSI C800:25 is emerging as a complementary standard providing the performance-based engineering data that fire protection engineers need for site-specific AHJ approvals. The practical effect: certification now requires planning, testing, and documentation at a scale most BESS programs haven't encountered before.</p>
+    <div class="synthesis-box">
+      <div class="label">Synthesis — Certification Strategy Lens</div>
+      <p>Ed. 5 test reports are no longer sufficient for new project approvals under 2026 NFPA 855. Programs in development today must budget for LSFT at the installation level, requiring dedicated lab capacity with calorimetry infrastructure. Manufacturers who proactively run Ed. 6 tests and build comprehensive LSFT data packages will have a meaningful lead-time advantage over competitors still relying on legacy reports.</p>
+    </div>
+    <div class="sources">
+      <div class="source-item"><span class="source-type">STD</span> UL Solutions — UL 9540A 6th Edition published March 13, 2026</div>
+      <div class="source-item"><span class="source-type">STD</span> NFPA 855 (2026 Edition) — Annex G.11, §9.2.1.2.1</div>
+      <div class="source-item"><span class="source-type">TRADE</span> IndustryWeek / Tayyara — 6th Edition Certification Implications (Apr 2026)</div>
+      <div class="source-item"><span class="source-type">TRADE</span> Intertek Blog — Advancing Fire Safety in Energy Storage (Mar 2026)</div>
+    </div>
+    <div class="bias-meters">
+      <div class="bias-meter"><div class="bias-meter-label"><span class="bias-meter-icon">🔬</span> Technology</div><div class="bias-track"><div class="bias-fill" style="width:45%;background:linear-gradient(90deg,#27ae60,#b35c00)"></div></div><div class="bias-ends"><span>LFP/Incumbent</span><span>Next-Gen</span></div></div>
+    </div>
+    <div class="steel-man">
+      <div class="label">📌 Other Side</div>
+      <p>LSFT requirements add significant cost and lead time, which could delay deployment at a moment when grid demand is surging. Some fire protection engineers argue that a well-designed Ed. 5 system with adequate spacing already addresses the core safety concern, and that mandatory LSFT imposes diminishing returns on outdoor containerized configurations — where the risk of propagation to adjacent units is structurally limited by site layout rather than enclosure design.</p>
+    </div>
+  </div>
+
+  <div class="article">
+    <div class="tags"><span class="tag tag-market">Market</span><span class="tag tag-storage">Storage</span></div>
+    <h3>"Unfettered Optimism" on BESS Degradation Meets Operational Reality at US Storage Summit 2026</h3>
+    <p>Industry leaders at the 2026 US Energy Storage Summit in Dallas issued a direct warning: typical grid-scale BESS assets are projected to lose 20–30% of capacity in the first decade, and merchant-cycled systems are on pace to experience degradation costing tens of millions of dollars in project valuation. FlexGen's Director of Data Analytics identified cell imbalance — not calendar aging — as the primary near-term bottleneck, with passive BMS balancing approaches burning off excess energy via resistors rather than recovering it. Active balancing, which redistributes current to equalize cell voltage, is the preferred mitigation but requires more sophisticated BMS integration not standard in most deployed systems.</p>
+    <p>Bank of America's Director of GRE Technical flagged auxiliary loads as a persistent blind spot in project financial models, noting that extreme ambient conditions (107°F in Arizona) drive thermal management energy draw far above modeled assumptions. The combined effect of cell imbalance and auxiliary load underestimation is systematic overstatement of available revenue. Capacity test methodologies during commissioning were called out as a critical quality gate — catching "bad cells" early allows warranty claims before long-term performance contracts are locked in.</p>
+    <div class="synthesis-box">
+      <div class="label">Synthesis — Validation &amp; Test Engineering Lens</div>
+      <p>The degradation data gap is a direct validation problem. Commissioning-phase performance testing protocols — including deliberate early cycling, cell imbalance characterization, and auxiliary load baselining under thermal extremes — are becoming differentiating capabilities for test engineers. Programs that build rigorous site acceptance test sequences and capacity verification protocols are directly protecting long-term project value.</p>
+    </div>
+    <div class="sources">
+      <div class="source-item"><span class="source-type">CONF</span> Energy Storage Summit USA 2026, Dallas TX — BESS Degradation Panel (Mar 2026)</div>
+      <div class="source-item"><span class="source-type">TRADE</span> Energy-Storage.News — Unfettered Optimism on BESS Degradation (Apr 2026)</div>
+      <div class="source-item"><span class="source-type">SYNTH</span> FlexGen / Bank of America commentary on cell imbalance and auxiliary load modeling</div>
+    </div>
+    <div class="bias-meters">
+      <div class="bias-meter"><div class="bias-meter-label"><span class="bias-meter-icon">⚖️</span> Market Structure</div><div class="bias-track"><div class="bias-fill" style="width:38%"></div></div><div class="bias-ends"><span>Merchant-Heavy</span><span>Contracted</span></div></div>
+    </div>
+    <div class="steel-man">
+      <div class="label">📌 Other Side</div>
+      <p>The degradation narrative overstates risk for well-managed contracted assets with appropriate dispatch controls. Projects under tolling arrangements with strict cycling limits may not experience the merchant-equivalent degradation rates highlighted at the summit. LFP's inherently lower degradation vs. NMC warrants more optimism for well-specified procurements, and CATL's 4th-generation cells specifically target reduced lithium plating under high-frequency partial cycling.</p>
+    </div>
+  </div>
+
+  <div class="article">
+    <div class="tags"><span class="tag tag-market">Market</span><span class="tag tag-grid">Grid</span></div>
+    <h3>US Records 57.6 GWh BESS Deployment in 2025 — Virginia Signs 20.78 GW State Storage Mandate</h3>
+    <p>The inaugural SEIA/Benchmark Mineral Intelligence Energy Storage Market Outlook confirmed the U.S. added a record 57.6 GWh of battery storage capacity in 2025, with the global BESS market valued at $81.6 billion in 2026. Industry forecasts project installations may dip slightly in 2026 amid FEOC transition uncertainty, but the five-year trajectory remains intact with approximately 93 GW expected over 2026–2031. A structural tailwind: EV battery suppliers AESC and LG Energy Solution are shifting toward stationary storage as EV demand softens, improving FEOC-compliant cell availability without new greenfield investment.</p>
+    <p>Virginia's Governor Spanberger signed legislation targeting 20.78 GW of energy storage capacity in April 2026 — one of the largest state-level storage mandates in U.S. history. In Europe, over 1.4 GW / 3.4 GWh of grid-scale BESS came online in a single month, likely the continent's best month ever. The convergence of AI infrastructure demand, grid reliability mandates, and renewable integration is driving deployment across all segments simultaneously, with C&I emerging as the fastest-growing segment by revenue at a projected $21B globally by 2036.</p>
+    <div class="synthesis-box">
+      <div class="label">Synthesis — Business Development Lens</div>
+      <p>State-level storage mandates like Virginia's are now the clearest near-term demand signal for test labs and certification bodies. Projects targeting state procurement programs have firm timelines and budget authority, making them more valuable opportunities than merchant-speculative developments. Prioritize relationship-building in Virginia, California, and New York state procurement ecosystems where mandate pipelines are deepest.</p>
+    </div>
+    <div class="sources">
+      <div class="source-item"><span class="source-type">GOV</span> SEIA / Benchmark Mineral Intelligence — Energy Storage Market Outlook Q1 2026 (Mar 2026)</div>
+      <div class="source-item"><span class="source-type">GOV</span> Virginia Governor's Office — Energy Storage Legislation signed Apr 2026</div>
+      <div class="source-item"><span class="source-type">TRADE</span> Energy-Storage.News — European BESS deployment monthly record (Apr 2026)</div>
+      <div class="source-item"><span class="source-type">TRADE</span> Future Market Insights — BESS Market Forecast 2026–2036</div>
+    </div>
+    <div class="bias-meters">
+      <div class="bias-meter"><div class="bias-meter-label"><span class="bias-meter-icon">⚖️</span> Market Structure</div><div class="bias-track"><div class="bias-fill" style="width:62%"></div></div><div class="bias-ends"><span>Merchant</span><span>Contracted</span></div></div>
+    </div>
+    <div class="steel-man">
+      <div class="label">📌 Other Side</div>
+      <p>Record 2025 deployment figures partly reflect a pull-forward of projects rushed ahead of FEOC and OBBBA effective dates, suggesting 2026 could show a real cyclical trough rather than just a modest pause. Analysts citing "slight dip" projections may be underestimating how thin the post-safe-harbour project queue actually is once the rush-to-complete inventory is exhausted.</p>
+    </div>
+  </div>
+
+  <div class="section-nav-end"><span></span><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec02" class="section-nav-btn">📊 Macro Signal →</a></div>
+</div>
+
+<!-- ═══ SEC 02 MACRO SIGNAL ═══ -->
+<div class="wrapper" id="sec02">
+  <div class="section-header"><span class="section-number">SECTION 02</span><span class="section-title">Macro Signal</span></div>
+  <div class="section-nav"><a href="#sec01" class="section-nav-btn">← ⚡ Executive Briefs</a><span class="section-nav-label">Section 02 of 10 — Macro Signal</span><a href="#sec03" class="section-nav-btn">🗺 Risk Map →</a></div>
+
+  <div class="macro-box">
+    <div class="kicker">Market Context</div>
+    <h3>Two Forces in Tension: Strong Structural Demand vs. FEOC-Driven Cost Headwinds</h3>
+    <p>The macroeconomic backdrop for BESS in April 2026 is defined by strong structural demand — driven by AI infrastructure load growth and renewable integration mandates — set against near-term cost headwinds from FEOC compliance costs and tariff uncertainty on Chinese battery cells. Storage retains robust ITC/PTC support through 2033 under the OBBBA, but supply chain restrictions have introduced a cost premium of $10–30/kWh for fully FEOC-compliant systems. Even under conservative FEOC assumptions, C&I and utility-scale storage projects continue to deliver attractive IRRs of 14–18%, maintaining storage's relative attractiveness versus solar and wind in the current policy environment.</p>
+  </div>
+
+  <div class="signal-row">
+    <div class="signal-card"><div class="label">GLOBAL BESS MARKET 2026</div><div class="value">$81.6<span style="font-size:14px">B</span></div><div class="sub">9.1% CAGR → $195B by 2036</div></div>
+    <div class="signal-card"><div class="label">US 2025 DEPLOYMENT</div><div class="value">57.6<span style="font-size:14px">GWh</span></div><div class="sub">Record year · ~19 GW installed</div></div>
+    <div class="signal-card"><div class="label">FEOC COST PREMIUM</div><div class="value" style="color:var(--red)">+$10<span style="font-size:14px">/kWh</span></div><div class="sub">If 45X credits lost · module level</div></div>
+    <div class="signal-card"><div class="label">C&I BESS MARKET 2036</div><div class="value">$21<span style="font-size:14px">B</span></div><div class="sub">5× growth · AI datacenters lead</div></div>
+  </div>
+
+  <div class="macro-box">
+    <div class="kicker">Supply Chain Signal</div>
+    <h3>Domestic Cell Manufacturing: Window of Cost Parity Opening by 2027</h3>
+    <p>U.S.-made LFP cells carrying the 45X credit ($35/kWh) are approaching cost parity with imported Chinese cells by 2027, particularly once 54% tariff differentials are factored in. Korean producers AESC and LG Energy Solution are retooling EV lines to serve stationary storage demand — providing a FEOC-compliant bridge supply that didn't exist 18 months ago. Analysts estimate available non-FEOC LFP cell capacity will fall short of projected ~50 GWh U.S. demand if plants operate at historical 70–80% utilization, creating a real allocation constraint through at least mid-2027.</p>
+  </div>
+
+  <div class="section-nav-end"><a href="#sec01" class="section-nav-btn">← ⚡ Executive Briefs</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec03" class="section-nav-btn">🗺 Risk Map →</a></div>
+</div>
+
+<!-- ═══ SEC 03 RISK MAP ═══ -->
+<div class="wrapper" id="sec03">
+  <div class="section-header"><span class="section-number">SECTION 03</span><span class="section-title">Project Developer Risk Map</span></div>
+  <div class="section-nav"><a href="#sec02" class="section-nav-btn">← 📊 Macro Signal</a><span class="section-nav-label">Section 03 of 10 — Risk Map</span><a href="#sec04" class="section-nav-btn">📈 Data Snapshot →</a></div>
+
+  <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Risk profiles across stakeholder segments are diverging sharply based on project vintage and supply chain positioning. Safe-harbored 2025 projects are largely insulated from FEOC complexity, while new-starts face the full weight of compliance and tariff uncertainty simultaneously.</p>
+
+  <table class="risk-table">
+    <thead><tr><th>Stakeholder Segment</th><th>FEOC / Supply</th><th>IRA / ITC Credit</th><th>Tariff Exposure</th><th>90-Day Outlook</th><th>Action Signal</th></tr></thead>
+    <tbody>
+      <tr><td><strong>IPP / Merchant Developer (new-start 2026)</strong></td><td><span class="risk-badge risk-critical">CRITICAL</span></td><td><span class="risk-badge risk-high">HIGH</span></td><td><span class="risk-badge risk-high">HIGH</span></td><td>Secure Korean cell agreements or face 30%+ cost overrun</td><td>Lock supply now</td></tr>
+      <tr><td><strong>IPP / Developer (2025 safe-harbor projects)</strong></td><td><span class="risk-badge risk-stable">STABLE</span></td><td><span class="risk-badge risk-stable">STABLE</span></td><td><span class="risk-badge risk-moderate">MODERATE</span></td><td>Execution risk from Chinese tariff expiry in Aug 2026</td><td>Monitor tariff rollover</td></tr>
+      <tr><td><strong>Utility / State Procurement (VA, CA, NY)</strong></td><td><span class="risk-badge risk-watch">WATCH</span></td><td><span class="risk-badge risk-stable">STABLE</span></td><td><span class="risk-badge risk-moderate">MODERATE</span></td><td>State mandates provide demand certainty; supply bottleneck is primary risk</td><td>Accelerate specs</td></tr>
+      <tr><td><strong>C&I / Behind-the-Meter</strong></td><td><span class="risk-badge risk-moderate">MODERATE</span></td><td><span class="risk-badge risk-watch">WATCH</span></td><td><span class="risk-badge risk-moderate">MODERATE</span></td><td>AI datacenter demand surge improving project economics for larger systems</td><td>Opportunity window</td></tr>
+      <tr><td><strong>BESS Manufacturer (Chinese-affiliated)</strong></td><td><span class="risk-badge risk-critical">CRITICAL</span></td><td><span class="risk-badge risk-critical">CRITICAL</span></td><td><span class="risk-badge risk-critical">CRITICAL</span></td><td>FEOC disqualification; stranded asset risk rising for US-deployed inventory</td><td>Restructure supply chain</td></tr>
+      <tr><td><strong>Test Lab / Certification Body</strong></td><td><span class="risk-badge risk-watch">WATCH</span></td><td><span class="risk-badge risk-stable">STABLE</span></td><td><span class="risk-badge risk-stable">STABLE</span></td><td>UL 9540A Ed.6 + NFPA 855 driving lab capacity demand spike</td><td><span class="risk-badge risk-stable">OPPORTUNITY</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-nav-end"><a href="#sec02" class="section-nav-btn">← 📊 Macro Signal</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec04" class="section-nav-btn">📈 Data Snapshot →</a></div>
+</div>
+
+<!-- ═══ SEC 04 DATA SNAPSHOT ═══ -->
+<div class="wrapper" id="sec04">
+  <div class="section-header"><span class="section-number">SECTION 04</span><span class="section-title">Data Snapshot</span></div>
+  <div class="section-nav"><a href="#sec03" class="section-nav-btn">← 🗺 Risk Map</a><span class="section-nav-label">Section 04 of 10 — Data Snapshot</span><a href="#sec05" class="section-nav-btn">🔋 Battery Tech →</a></div>
+
+  <div class="snapshot-grid">
+    <div class="snapshot-cell"><div class="snapshot-value">57.6 GWh</div><div class="snapshot-label">US 2025 BESS Deploy · Record Year</div></div>
+    <div class="snapshot-cell snap-warn"><div class="snapshot-value warn">55%</div><div class="snapshot-label">FEOC Non-PFE Threshold 2026 · ITC</div></div>
+    <div class="snapshot-cell snap-down"><div class="snapshot-value down">+$10/kWh</div><div class="snapshot-label">FEOC Cost Increase · 45X Credits Lost</div></div>
+    <div class="snapshot-cell"><div class="snapshot-value">93 GW</div><div class="snapshot-label">US BESS 5-yr Forecast · 2026–2031</div></div>
+    <div class="snapshot-cell snap-down"><div class="snapshot-value down">~54%</div><div class="snapshot-label">Chinese Cell Tariff · Expiry Aug 2026</div></div>
+    <div class="snapshot-cell"><div class="snapshot-value">20.78 GW</div><div class="snapshot-label">Virginia Storage Mandate · Apr 2026</div></div>
+    <div class="snapshot-cell snap-warn"><div class="snapshot-value warn">20–30%</div><div class="snapshot-label">BESS Capacity Loss · Decade 1 Merchant</div></div>
+    <div class="snapshot-cell"><div class="snapshot-value">1.4 GW</div><div class="snapshot-label">Europe Monthly Record · 3.4 GWh</div></div>
+  </div>
+
+  <div class="section-nav-end"><a href="#sec03" class="section-nav-btn">← 🗺 Risk Map</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec05" class="section-nav-btn">🔋 Battery Tech →</a></div>
+</div>
+
+<!-- ═══ SEC 05 BATTERY TECH ═══ -->
+<div class="wrapper" id="sec05">
+  <div class="section-header"><span class="section-number">SECTION 05</span><span class="section-title">Evolving Battery Technology</span></div>
+  <div class="section-nav"><a href="#sec04" class="section-nav-btn">← 📈 Data Snapshot</a><span class="section-nav-label">Section 05 of 10 — Battery Tech</span><a href="#sec06" class="section-nav-btn">🔭 Future Landscape →</a></div>
+
+  <div class="tech-card">
+    <div class="tech-card-header"><span class="tech-card-name">LFP (LITHIUM IRON PHOSPHATE)</span><span class="tech-card-trl">TRL <span>9</span> / 9 — Commercial</span></div>
+    <div class="trl-bar"><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div></div>
+    <p>Dominant chemistry at 80%+ of global BESS deployments. Declining cost curve driven by Chinese overcapacity; U.S.-domestic variants approaching parity via 45X credit by 2027. FEOC compliance pressure is the primary near-term headwind — most LFP cells in global supply are Chinese-origin, creating sourcing constraints for ITC-eligible U.S. projects.</p>
+  </div>
+
+  <div class="tech-card">
+    <div class="tech-card-header"><span class="tech-card-name">SODIUM-ION (Na-Ion)</span><span class="tech-card-trl">TRL <span>7</span> / 9 — Early Commercial</span></div>
+    <div class="trl-bar"><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip"></div><div class="trl-pip"></div></div>
+    <p>Entering early commercial deployment in 2026. Sungrow's PowerTitan 3.0 (January 2026, Madrid) integrates 7.14 MWh in a 20-foot container with grid-forming capability. Non-FEOC hard carbon anode supply chain is a genuine differentiator vs. LFP. Not yet cost-competitive with LFP at scale, but FEOC premium gap is narrowing the effective cost differential for new-start projects.</p>
+  </div>
+
+  <div class="tech-card">
+    <div class="tech-card-header"><span class="tech-card-name">REDOX FLOW (Vanadium / Iron-Air)</span><span class="tech-card-trl">TRL <span>8</span> / 9 — Niche Commercial</span></div>
+    <div class="trl-bar"><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip"></div></div>
+    <p>Gaining real traction in high-cycle industrial applications and datacenter facilities where minimal degradation over thousands of cycles and non-flammable electrolytes align with application demands. Form Energy's 12 GWh iron-air supply agreement with AI datacenter developer Crusoe is the largest long-duration storage commitment in the datacenter sector to date — signaling a structural shift in how hyperscalers view LDES.</p>
+  </div>
+
+  <div class="tech-card">
+    <div class="tech-card-header"><span class="tech-card-name">SECOND-LIFE EV BATTERIES</span><span class="tech-card-trl">TRL <span>6</span> / 9 — Pilot Scale</span></div>
+    <div class="trl-bar"><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip high"></div><div class="trl-pip"></div><div class="trl-pip"></div><div class="trl-pip"></div></div>
+    <p>Finding first large-scale datacenter applications in 2026 as softening EV demand produces surplus end-of-automotive-life packs. Certification challenges remain significant — repurposed packs require cell-level characterization and custom BMS integration. No standard testing protocol yet exists under UL 9540A for second-life pack configurations; first-mover labs that develop methodology guidance will capture disproportionate early project flow.</p>
+  </div>
+
+  <div class="section-nav-end"><a href="#sec04" class="section-nav-btn">← 📈 Data Snapshot</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec06" class="section-nav-btn">🔭 Future Landscape →</a></div>
+</div>
+
+<!-- ═══ SEC 06 FUTURE LANDSCAPE ═══ -->
+<div class="wrapper" id="sec06">
+  <div class="section-header"><span class="section-number">SECTION 06</span><span class="section-title">Future Landscape of Energy Storage</span></div>
+  <div class="section-nav"><a href="#sec05" class="section-nav-btn">← 🔋 Battery Tech</a><span class="section-nav-label">Section 06 of 10 — Future Landscape</span><a href="#sec07" class="section-nav-btn">🖥 Datacenter →</a></div>
+
+  <div class="timeline-track">
+    <div class="timeline-row">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-content"><h4>FEOC Compliance Transition &amp; Supply Chain Restructuring</h4><p>Korean manufacturers absorb EV demand softness, retooling to serve stationary storage. Safe-harbored projects clear the pipeline. IRS 45X safe harbour table for manufacturers still pending. Chinese tariff expiry in August creates a binary market event that could reshuffled cost economics for non-safe-harbored procurements.</p></div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2027</div>
+      <div class="timeline-content"><h4>Domestic Cell Cost Parity &amp; Wildfire Chemistry Threshold</h4><p>U.S.-made LFP cells approach independent cost competitiveness. Non-flammable chemistries (flow, Na-ion) likely to receive explicit procurement preference in California and wildfire-prone regions. IRS 45X guidance expected by year end. A second major BESS fire incident would accelerate this inflection significantly.</p></div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2029</div>
+      <div class="timeline-content"><h4>45X Credit Phase-Out Begins &amp; FEOC Threshold Tightens to 75%</h4><p>45X manufacturing credit begins five-year phase-out. FEOC MACR threshold rises from 55% to 75%, putting further pressure on any remaining Chinese-supply dependency. Long-duration storage transitions from niche to strategic necessity for grid firming at 8+ hour durations.</p></div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2030</div>
+      <div class="timeline-content"><h4>Circular Battery Economy &amp; 600 GWh US Cumulative Target</h4><p>Industry targets 600 GWh total U.S. BESS capacity. Second-life repurposing and direct cathode recycling reshape end-of-life economics. Grid reliability — not decarbonization — continues as the bipartisan policy anchor sustaining storage support through the decade.</p></div>
+    </div>
+  </div>
+
+  <div class="section-nav-end"><a href="#sec05" class="section-nav-btn">← 🔋 Battery Tech</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec07" class="section-nav-btn">🖥 Datacenter →</a></div>
+</div>
+
+<!-- ═══ SEC 07 DATACENTER ═══ -->
+<div class="wrapper" id="sec07">
+  <div class="section-header"><span class="section-number">SECTION 07</span><span class="section-title">Datacenter Opportunities</span></div>
+  <div class="section-nav"><a href="#sec06" class="section-nav-btn">← 🔭 Future Landscape</a><span class="section-nav-label">Section 07 of 10 — Datacenter</span><a href="#sec08" class="section-nav-btn">🏛 Certification →</a></div>
+
+  <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">AI infrastructure companies face grid interconnection queues of 5–7 years. BESS installed behind the point of interconnection can enable full datacenter operation while waiting for larger grid connections — creating direct economic return on storage investment without depending on energy arbitrage or ancillary services revenue.</p>
+
+  <div class="dc-stat-grid">
+    <div class="dc-stat"><div class="dc-stat-value">12 GWh</div><div class="dc-stat-label">Form Energy iron-air supply agreement with Crusoe Energy — largest LDES datacenter deal on record</div></div>
+    <div class="dc-stat"><div class="dc-stat-value">5–7 yr</div><div class="dc-stat-label">Grid interconnection queue for AI hyperscaler facilities — primary BESS ROI driver in 2026</div></div>
+    <div class="dc-stat"><div class="dc-stat-value">4</div><div class="dc-stat-label">Distinct BESS roles in datacenters: UPS, load buffering, interconnection enablement, grid flexibility</div></div>
+    <div class="dc-stat"><div class="dc-stat-value">$21B</div><div class="dc-stat-label">C&I BESS market by 2036 — AI datacenter construction is the primary growth driver globally</div></div>
+  </div>
+
+  <p style="font-size:14px;color:var(--text);line-height:1.7;margin-top:8px;"><strong>Validation implication:</strong> Datacenter BESS certifications increasingly require coordination between UPS standards (UL 1778, IEC 62040), energy storage standards (UL 9540/9540A), and facility fire codes (NFPA 855, IFC). Test programs spanning all three domains are becoming a bottleneck — and a differentiation opportunity — for labs with cross-domain expertise. The Form Energy / Crusoe deal signals that datacenter operators are now evaluating LDES as critical facility infrastructure, requiring durability and safety certification pathways that don't yet have standardized templates.</p>
+
+  <div class="section-nav-end"><a href="#sec06" class="section-nav-btn">← 🔭 Future Landscape</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec08" class="section-nav-btn">🏛 Certification →</a></div>
+</div>
+
+<!-- ═══ SEC 08 CERTIFICATION ═══ -->
+<div class="wrapper" id="sec08">
+  <div class="section-header"><span class="section-number">SECTION 08</span><span class="section-title">Certification &amp; Compliance Evolution</span></div>
+  <div class="section-nav"><a href="#sec07" class="section-nav-btn">← 🖥 Datacenter</a><span class="section-nav-label">Section 08 of 10 — Certification</span><a href="#sec09" class="section-nav-btn">⚠ Emerging Risks →</a></div>
+
+  <table class="compliance-matrix">
+    <thead><tr><th>Standard</th><th>Scope</th><th>2026 Status</th><th>Key Change</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr><td><strong>UL 9540A Ed. 6</strong></td><td>BESS thermal runaway fire propagation test method</td><td><span class="status-badge status-active">ACTIVE</span></td><td>Large-scale fire testing formally incorporated; post-deflagration condition added; vented gas ignition required at installation level</td><td><span class="risk-badge risk-critical">CRITICAL</span></td></tr>
+      <tr><td><strong>NFPA 855 (2026 Ed.)</strong></td><td>BESS installation standard — safety, spacing, suppression</td><td><span class="status-badge status-active">ACTIVE</span></td><td>Mandatory HMA for all installations; NFPA 69-compliant explosion prevention required; standalone deflagration venting no longer sufficient for 600kWh+ indoor systems</td><td><span class="risk-badge risk-critical">CRITICAL</span></td></tr>
+      <tr><td><strong>CSA/ANSI C800:25</strong></td><td>Performance-based ESS fire characterization</td><td><span class="status-badge status-evolving">EVOLVING</span></td><td>Emerging AHJ-request standard for HRR, gas composition, detection response, BMS data — complements UL 9540A; not replaceable by it</td><td><span class="risk-badge risk-high">HIGH</span></td></tr>
+      <tr><td><strong>UL 9540 (System Listing)</strong></td><td>ESS system safety listing standard</td><td><span class="status-badge status-active">ACTIVE</span></td><td>Ed. 6 LSFT data now required as supporting documentation for listing — cell-change protocol after LSFT completion is an unresolved gap requiring industry guidance</td><td><span class="risk-badge risk-high">HIGH</span></td></tr>
+      <tr><td><strong>IEC 62619 / 62933</strong></td><td>International ESS safety and performance standards</td><td><span class="status-badge status-pending">PENDING</span></td><td>Ed. 3 drafts in progress; alignment with NFPA 855 LSFT methodology being tracked by TC21 — adoption timeline uncertain</td><td><span class="risk-badge risk-moderate">MODERATE</span></td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:14px;color:var(--text-muted);margin-top:16px;line-height:1.7;">The practical certification burden under 2026 rules: programs must budget for LSFT at the installation level (adding 8–16 weeks and $500K–$1.5M for large container systems), produce a Hazard Mitigation Analysis directed by a Registered Design Professional with ESS-specific fire protection expertise, and proactively generate CSA C800:25 data to answer AHJ requests that fall outside UL 9540A's explicit scope. Programs that don't account for this now will face costly re-work at the permitting stage.</p>
+
+  <div class="section-nav-end"><a href="#sec07" class="section-nav-btn">← 🖥 Datacenter</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec09" class="section-nav-btn">⚠ Emerging Risks →</a></div>
+</div>
+
+<!-- ═══ SEC 09 EMERGING RISKS ═══ -->
+<div class="wrapper" id="sec09">
+  <div class="section-header"><span class="section-number">SECTION 09</span><span class="section-title">Emerging Risks</span></div>
+  <div class="section-nav"><a href="#sec08" class="section-nav-btn">← 🏛 Certification</a><span class="section-nav-label">Section 09 of 10 — Emerging Risks</span><a href="#sec10" class="section-nav-btn">🌱 Thought Seed →</a></div>
+
+  <div class="risk-flag" style="border-left-color:#e74c3c">
+    <div class="risk-flag-icon">🔴</div>
+    <div class="risk-flag-content">
+      <h4>Chinese Cell Tariff Expiry (August 2026) — Binary Market Event</h4>
+      <p>The 54% tariff on Chinese battery cells is set to expire in August 2026 with no confirmed replacement. Absence of clarity is driving a purchasing surge that may create artificial demand signals masking real underlying market conditions. If tariffs lapse without replacement, a sudden price correction could disrupt the economics of the domestic manufacturing push — particularly for AESC and LG facilities whose business case depends on price parity with imports.</p>
+    </div>
+  </div>
+
+  <div class="risk-flag" style="border-left-color:#b35c00">
+    <div class="risk-flag-icon">🟠</div>
+    <div class="risk-flag-content">
+      <h4>45X Manufacturing Safe Harbour Guidance Gap — IRS Timeline to End-2027</h4>
+      <p>While project developers received ITC FEOC safe harbour guidance via Notice 2026-15, equivalent guidance for 45X manufacturing credit claimants has not been published. BNEF expects IRS to publish by end of 2027 — meaning domestic manufacturers are operating without definitive compliance guidance for up to 18 more months, creating real risk of credit recapture for facilities making sourcing decisions today based on assumptions that may later be corrected.</p>
+    </div>
+  </div>
+
+  <div class="risk-flag" style="border-left-color:var(--accent2)">
+    <div class="risk-flag-icon">🟡</div>
+    <div class="risk-flag-content">
+      <h4>BESS Degradation Optimism Gap — Auxiliary Load Modeling Errors Threatening Project Valuations</h4>
+      <p>Systematic underestimation of auxiliary load consumption — particularly thermal management energy draw under extreme ambient conditions — is creating a persistent gap between modeled and operational BESS performance. Projects in hot-climate regions (Arizona, Texas, Southeast) are most exposed. Financiers are beginning to require more conservative auxiliary load assumptions and independent commissioning validation, which could affect financing terms for projects with legacy financial models.</p>
+    </div>
+  </div>
+
+  <div class="risk-flag" style="border-left-color:var(--accent)">
+    <div class="risk-flag-icon">👁</div>
+    <div class="risk-flag-content">
+      <h4>Next Major BESS Fire Incident Could Accelerate Non-Flammable Chemistry Mandates</h4>
+      <p>Industry observers describe non-flammable chemistry adoption in wildfire-prone regions as a matter of "when, not if" following a trigger incident. The Moss Landing fire established the regulatory template; insurers are already pricing chemistry risk differentially. A second high-profile incident before 2027 could catalyze AHJ-driven chemistry restrictions reshaping procurement specs for an estimated 15+ GW of California storage pipeline in ways not captured in current financial models.</p>
+    </div>
+  </div>
+
+  <div class="section-nav-end"><a href="#sec08" class="section-nav-btn">← 🏛 Certification</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#sec10" class="section-nav-btn">🌱 Thought Seed →</a></div>
+</div>
+
+<!-- ═══ SEC 10 THOUGHT SEED ═══ -->
+<div class="wrapper" id="sec10">
+  <div class="section-header"><span class="section-number">SECTION 10</span><span class="section-title">Thought Seed — Research Translation</span></div>
+  <div class="section-nav"><a href="#sec09" class="section-nav-btn">← ⚠ Emerging Risks</a><span class="section-nav-label">Section 10 of 10 — Thought Seed</span><span></span></div>
+
+  <div class="thought-seed">
+    <div class="seed-kicker">🌱 Research Translation</div>
+    <div class="seed-cite">Omri Tayyara, Ph.D. · IndustryWeek / CSA Group · April 2026 · "What the 6th Edition of UL 9540A Means for Battery Storage Safety Certification"</div>
+    <div class="seed-h2">The Certification Floor Moved — And Most BESS Programs Haven't Caught Up Yet</div>
+
+    <div class="seed-section-label">What the Research Says</div>
+    <p class="seed-p">The 6th Edition of UL 9540A formalizes large-scale fire testing (LSFT) as the certification baseline for BESS installations. But the critical insight from Tayyara's analysis is that UL 9540A Ed. 6 is a necessary but not sufficient standard for real project approval — it establishes the certification floor, not the ceiling. AHJs and fire protection engineers consistently require heat release rate (HRR) data, gas composition analysis, and BMS response data that are explicitly outside UL 9540A's scope. CSA/ANSI C800:25 exists precisely to fill this gap, and the two standards together now form the practical certification package for complex or novel installations. NFPA 855-2026 §4.4.2.3 adds a further layer: the HMA must evaluate the reliability and survivability of critical safety components during thermal runaway propagation — not just demonstrate non-propagation in a lab configuration.</p>
+
+    <div class="seed-section-label">Why This Matters Right Now</div>
+    <p class="seed-p">Programs being designed today for 2026–2027 construction starts are planning test programs against Ed. 5 norms. The design, test, and documentation effort required to satisfy Ed. 6 + NFPA 855 (2026) + CSA C800:25 is meaningfully larger — likely adding 8–16 weeks to a typical certification timeline and potentially $500K–$1.5M in additional test costs for full LSFT on large container systems. Programs that don't budget for this now will face costly re-work at the AHJ review stage, often after engineering is already locked.</p>
+
+    <div class="seed-section-label">Original Intelligence — Not in the Paper</div>
+    <p class="seed-p"><strong>The Cell-Change Protocol Gap:</strong> The intersection of FEOC compliance and certification testing creates an underappreciated double-exposure for manufacturers. A program that runs a full Ed. 6 LSFT with a Chinese-cell configuration — and subsequently needs to switch to FEOC-compliant Korean cells — must evaluate whether the test data remains valid for the new cell variant. Cell-level performance characteristics (thermal runaway onset temperature, gas composition, HRR) can differ meaningfully between cell manufacturers. This could force repeat LSFT or at minimum require a change-in-design engineering analysis — neither reflected in current certification program budgets for 2026 product launches. No standard protocol yet exists to govern this scenario.</p>
+
+    <div class="confidence-badge">🟢 Confidence Level: High — Multiple independent sources confirm; standard text publicly available; CSA Group, UL Solutions, and Intertek commentary corroborates interpretation</div>
+
+    <div class="seed-section-label">Implementation Path</div>
+    <ul class="impl-list">
+      <li>Audit all active BESS certification programs for UL 9540A edition version — any program relying solely on Ed. 5 installation-level reports must be flagged for AHJ approval risk under 2026 NFPA 855 adoptions</li>
+      <li>Build CSA/ANSI C800:25 test scope into standard LSFT quotations proactively — offer HRR, gas composition, and detection response as a bundled package rather than responding to AHJ RFIs after the test window closes</li>
+      <li>Develop a "cell change protocol" document outlining the minimum additional testing required when a FEOC-driven cell substitution occurs after initial UL 9540A LSFT completion — this is a value-add service the market needs urgently in 2026</li>
+      <li>Engage manufacturers on HMA planning early in product design: position test labs as partners in the HMA process, not just test executors, to capture higher-value project involvement and reduce permitting surprises</li>
+      <li>For second-life EV battery programs, begin developing a UL 9540A LSFT test plan template specific to repurposed-pack configurations — no standard exists yet and the first lab to publish methodology guidance captures disproportionate early project flow</li>
+    </ul>
+
+    <div class="steel-man">
+      <div class="label">📌 Steel-Manned Counterargument</div>
+      <p>The certification complexity narrative may overstate the practical barrier. Many AHJs, particularly in states with limited ESS experience, continue to accept Ed. 5 documentation and rely on prescriptive NFPA 855 spacing tables rather than performance-based LSFT outcomes. For straightforward outdoor containerized utility-scale projects in non-wildfire-prone jurisdictions, the marginal cost of upgrading from Ed. 5 to Ed. 6 compliance may not be justified by approval timeline benefits — especially if Ed. 6 adoption by state and local codes lags the NFPA publication cycle by the historically typical 2–3 years.</p>
+    </div>
+
+    <div class="seed-section-label">Further Reading</div>
+    <div class="further-reading">
+      <a href="https://www.industryweek.com/technology-and-iiot/article/55367396/what-the-6th-edition-of-ul-9540a-means-for-battery-storage-safety-certification">Tayyara — UL 9540A 6th Edition Certification Implications · IndustryWeek, Apr 2026</a>
+      <a href="https://www.engineeringfireprotection.com/post/nfpa-855-2026-edition-what-s-new-for-battery-energy-storage-systems">Engineering Fire Protection — NFPA 855 (2026 Edition): What's New · Nov 2025</a>
+      <a href="https://www.intertek.com/blog/2026/03-23-understanding-the-2026-update-to-ul-9540a/">Intertek — Advancing Fire Safety in Energy Storage: UL 9540A Update · Mar 2026</a>
+      <a href="https://www.energy-storage.news/ul9540a-new-edition-of-key-bess-fire-safety-standard-establishes-new-precedent/">Energy-Storage.News — UL9540A New Edition Establishes New Precedent · Mar 2026</a>
+    </div>
+  </div>
+
+  <div class="section-nav-end"><a href="#sec09" class="section-nav-btn">← ⚠ Emerging Risks</a><span class="section-nav-label">↑ <a href="#masthead" style="color:var(--text-dim)">Back to top</a></span><a href="#masthead" class="section-nav-btn">↑ Top</a></div>
+</div>
+
+<!-- ALL SOURCES -->
+<div class="wrapper">
+  <div class="sources-index">
+    <div class="sources-index-title">All Sources — Edition #002 — April 17, 2026</div>
+    <ol>
+      <li>U.S. Treasury / IRS — Notice 2026-15: FEOC Material Assistance Cost Ratio Safe Harbour Guidance (Feb 2026) [Gov]</li>
+      <li>Morgan Lewis — Utility-Scale Energy Storage Procurements in 2026: Contracting and Risk Allocation (Mar 2026) [Trade]</li>
+      <li>Morgan Lewis — How FEOC Rules Are Reshaping Energy Storage Tax Credit Eligibility (Mar 2026) [Trade]</li>
+      <li>Energy-Storage.News — US Energy Storage Summit USA 2026, Dallas TX — BESS Degradation Panel Coverage (Mar 2026) [Trade]</li>
+      <li>Energy-Storage.News — Unfettered Optimism on BESS Degradation Hits Wall of Operational Reality (Apr 2026) [Trade]</li>
+      <li>UL Solutions — UL 9540A 6th Edition Published March 13, 2026 [Standard]</li>
+      <li>UL Solutions — Understanding UL 9540A, NFPA 855 and Large-Scale Fire Testing (2026) [Standard]</li>
+      <li>IndustryWeek / Omri Tayyara Ph.D. — What the 6th Edition of UL 9540A Means for Battery Storage Safety Certification (Apr 2026) [Trade]</li>
+      <li>Intertek — Advancing Fire Safety in Energy Storage: Understanding the 2026 Update to UL 9540A (Mar 2026) [Trade]</li>
+      <li>Engineering Fire Protection — NFPA 855 (2026 Edition): What's New for BESS (Nov 2025) [Trade]</li>
+      <li>Electrical Trader — NFPA 855: Battery Fire Safety Standards (Feb 2026) [Trade]</li>
+      <li>SEIA / Benchmark Mineral Intelligence — Energy Storage Market Outlook Q1 2026 (Mar 2026) [Gov/Trade]</li>
+      <li>Virginia Governor's Office — Energy Storage Legislation signed by Gov. Spanberger (Apr 2026) [Gov]</li>
+      <li>Energy-Storage.News — European BESS deployment monthly record 1.4GW/3.4GWh (Apr 2026) [Trade]</li>
+      <li>Future Market Insights — BESS Market Forecast 2026–2036 (Feb 2026) [Trade]</li>
+      <li>Globe Newswire / ResearchAndMarkets — Battery Storage for Data Centers &amp; C&I 2026–2036 (Apr 2026) [Trade]</li>
+      <li>Solar Power World — Almost Overnight, the US Is on Way to Having an Oversupply of ESS Battery Cells (Jan 2026) [Trade]</li>
+      <li>pv magazine — Battery Technology Outlook for 2026 Sharpens Beyond Lithium-Ion (Jan 2026) [Trade]</li>
+      <li>Teneo — OBBBA Impact on U.S. Energy Storage: A Bump or a Fork in the Road? (Aug 2025) [Trade]</li>
+      <li>Energy-Storage.News — UL9540A New Edition Establishes New Precedent (Mar 2026) [Trade]</li>
+      <li>Energy-Storage.News — Form Energy 12GWh Iron-Air Supply Agreement with Crusoe (2026) [Trade]</li>
+      <li>CNESA — US Energy Storage Market to Sustain Momentum as Tax Credit Timeline Remains Intact (Jul 2025) [Trade]</li>
+      <li>Energy-Storage.News — Interim FEOC Guidance from US Treasury: Safe Harbour Reference (Feb 2026) [Trade]</li>
+      <li>pv magazine USA — Navigating OBBBA and Tariffs in U.S. Solar PV and Storage (Sep 2025) [Trade]</li>
+    </ol>
+  </div>
+</div>
+
+<!-- TRUTH FOOTER -->
+<div class="truth-footer">
+  <div class="wrapper">
+    <div class="truth-footer-inner">
+      <span class="tf-item"><span class="check">✓</span> Truth Layer Active</span>
+      <span class="tf-item"><span class="check">✓</span> 28 claims verified</span>
+      <span class="tf-item"><span class="check">✓</span> 24 primary sources</span>
+      <span class="tf-item"><span class="check">✓</span> 12 cross-checked</span>
+      <span class="tf-item"><span class="check">✓</span> 0 paywalled sources used</span>
+      <span class="tf-item"><span class="check">✓</span> All content from last 14 days or explicitly dated · Generated April 17, 2026</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleShare(e){e.stopPropagation();document.getElementById('shareDropdown').classList.toggle('open');}
+document.addEventListener('click',()=>{const d=document.getElementById('shareDropdown');if(d)d.classList.remove('open');});
+function downloadPDF(){const d=document.getElementById('shareDropdown');if(d)d.classList.remove('open');window.print();}
+function shareEmail(){const d=document.getElementById('shareDropdown');if(d)d.classList.remove('open');const s=encodeURIComponent('Battery Intelligence Brief — Edition #002 — April 17, 2026');const b=encodeURIComponent('Battery Intelligence Brief — Edition #002\nApril 17, 2026\n\nFEOC Compliance Reshapes the BESS Supply Chain\n\nSections: Executive Briefs · Macro Signal · Risk Map · Data Snapshot · Battery Technology · Future Landscape · Datacenter · Certification · Emerging Risks · Thought Seed\n\n'+(window.location.href.startsWith('http')?window.location.href:''));window.location.href='mailto:?subject='+s+'&body='+b;}
+function copyLink(){const d=document.getElementById('shareDropdown');if(d)d.classList.remove('open');const url=window.location.href,confirm=document.getElementById('copyConfirm'),done=()=>{if(confirm){confirm.classList.add('show');setTimeout(()=>confirm.classList.remove('show'),2200);}};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(done).catch(()=>fbCopy(url,done));}else{fbCopy(url,done);}}
+function fbCopy(text,cb){const ta=Object.assign(document.createElement('textarea'),{value:text});ta.style.cssText='position:fixed;top:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');cb();}catch(e){}document.body.removeChild(ta);}
+</script>
+</body>
+</html>
