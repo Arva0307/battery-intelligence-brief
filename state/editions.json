@@ -1,34 +1,32 @@
 [
   {
-    "edition": 4,
-    "date": "April 26, 2026",
-    "isoDate": "2026-04-26",
-    "title": "IRA Credit Cliff Meets Tariff Shock: The BESS Developer Crossroads of 2026",
-    "tags": [
-      "Storage",
-      "Grid",
-      "Market",
-      "Policy",
-      "Tech"
-    ],
-    "seed": "Zhao, L., Chen, W., &amp; Park, S. \u00b7 Nature Energy \u00b7 April 2026 \u00b7 \"Capacity fade mechanisms in utility-scale LFP systems under partial state",
-    "signal": "$312 /MW-day x $91 /kWh ex-works x $134 /kWh incl. tariffs",
-    "file": "brief-edition-004-2026-04-26.html"
-  },
-  {
     "edition": 3,
     "date": "April 26, 2026",
     "isoDate": "2026-04-26",
     "title": "IRA Credit Cliff Meets Tariff Shock: The BESS Developer Crossroads of 2026",
-    "tags": [
-      "Storage",
-      "Grid",
-      "Market",
-      "Policy",
-      "Tech"
-    ],
-    "seed": "Zhao, L., Chen, W., &amp; Park, S. \u00b7 Nature Energy \u00b7 April 2026 \u00b7 \"Capacity fade mechanisms in utility-scale LFP systems under partial state",
-    "signal": "$312 /MW-day x $91 /kWh ex-works x $134 /kWh incl. tariffs",
+    "tags": ["Storage", "Grid", "Market", "Policy", "Tech"],
+    "seed": "Zhao, L., Chen, W., & Park, S. · Nature Energy · April 2026 · Capacity fade mechanisms in utility-scale LFP systems",
+    "signal": "$312/MW-day x $91/kWh ex-works x $134/kWh incl. tariffs",
     "file": "brief-edition-003-2026-04-26.html"
+  },
+  {
+    "edition": 2,
+    "date": "April 26, 2026",
+    "isoDate": "2026-04-26",
+    "title": "FEOC Compliance Reshapes the BESS Supply Chain",
+    "tags": ["Storage", "Policy", "Market", "Tech"],
+    "seed": "Zhao, L., Chen, W., & Park, S. · Nature Energy · April 2026 · Capacity fade mechanisms in utility-scale LFP systems",
+    "signal": "$312/MW-day x $92/kWh CIF US x Treasury 4.61%",
+    "file": "brief-edition-002-2026-04-26.html"
+  },
+  {
+    "edition": 1,
+    "date": "April 26, 2026",
+    "isoDate": "2026-04-26",
+    "title": "IRA Under the Knife: Senate Reconciliation Puts $6B in BESS Tax Credits on the Table",
+    "tags": ["Storage", "Policy", "Market", "Grid", "Safety"],
+    "seed": "Zhao et al. · Nature Energy · 2026 · Capacity fade in utility-scale LFP under partial state-of-charge cycling",
+    "signal": "CAISO RA $312/MW-day x LFP Spot $92/kWh x Treasury 4.61%",
+    "file": "brief-edition-001-2026-04-26.html"
   }
 ]
