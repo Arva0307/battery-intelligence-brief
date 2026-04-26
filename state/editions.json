@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "edition": 3,
+    "date": "April 26, 2026",
+    "isoDate": "2026-04-26",
+    "title": "IRA Credit Cliff Meets Tariff Shock: The BESS Developer Crossroads of 2026",
+    "tags": [
+      "Storage",
+      "Grid",
+      "Market",
+      "Policy",
+      "Tech"
+    ],
+    "seed": "Zhao, L., Chen, W., &amp; Park, S. \u00b7 Nature Energy \u00b7 April 2026 \u00b7 \"Capacity fade mechanisms in utility-scale LFP systems under partial state",
+    "signal": "$312 /MW-day x $91 /kWh ex-works x $134 /kWh incl. tariffs",
+    "file": "brief-edition-003-2026-04-26.html"
+  }
+]
